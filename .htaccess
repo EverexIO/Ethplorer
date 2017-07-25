@@ -7,8 +7,12 @@ RewriteRule ^top$ page627210.html
 RewriteRule ^about$ page627364.html
 RewriteRule ^privacy$ page627373.html
 
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^js/config.js$ config.php [L,QSA]
 
 RewriteRule ^widgets$ widgets.html
+
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^tx/(.*) index.php [L,QSA]
