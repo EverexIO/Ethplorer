@@ -185,6 +185,30 @@
     max-width: 60vw;
 }
 
+.ethplorer-widget.widget-topTokens a[data-criteria] {
+    cursor: pointer;
+}
+
+
+.ethplorer-widget.widget-topTokens a[data-criteria].ewSelected {
+    cursor: default;
+    color: white;
+    text-decoration: none;
+}
+
+.ethplorer-widget.widget-topTokens .ewDiff {
+    max-width: 90px;
+    width: 90px;
+    text-align: right;
+}
+
+.ethplorer-widget.widget-topTokens .ewDiff .ewDiffUp {
+    color: #1e8c1e;
+}
+
+.ethplorer-widget.widget-topTokens .ewDiff .ewDiffDown {
+    color: #ae2525;
+}
 
 @media screen and (min-width: 999px) {
     .ethplorer-widget .tx-token {
@@ -235,4 +259,10 @@
 
 .ethplorer-widget.theme-dark {
     color: #DEDEDE;
+}
+
+.tooltipRow {
+	display: inline-block;
+	white-space: nowrap;
+	margin-top: 5px;
 }

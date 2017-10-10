@@ -1,0 +1,7 @@
+{
+    "require": {
+        "litipk/php-bignumbers": "0.7.3"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable" : false
+}
