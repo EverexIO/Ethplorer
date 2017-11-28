@@ -1,0 +1,127 @@
+Test check results:
+
+== testGetTokenInfo_Success ==
+
+1. returns JSON with data - OK
+2. returned JSON contains key 'address' with correct data - ОК
+
+== testGetTokenInfo_Error ==
+
+1. returns JSON with ERROR object - ОК
+2. returns code 104 if wrong address format - ОК
+3. returns code 150 if address type is wrong - ОК
+4. returns code 1 if wrong or missing API key - ОК
+
+== testGetAddressInfo_Success ==
+
+1. returns JSON with data - OK
+2. returned JSON contains key 'address' with correct data - ОК
+3. returns correct data about token with 'token' parameter - ОК
+
+== testGetAddressInfo_Error ==
+
+1. returns JSON with ERROR object - ОК
+2. returns code 104 if wrong token format - ОК
+3. returns code 150 if token type is wrong - ОК
+4. returns code 1 if wrong or missing API key - ОК
+
+== testGetTxInfo_Success ==
+
+1. returns JSON with data - OK
+2. returned JSON contains keys: 'timestamp', 'hash', 'blockNumber', 'from', 'value', 'gasLimit', 'gasUsed' with correct data - ОК
+3. returns correct data about token with 'token' parameter - ОК
+
+== testGetTxInfo_Error ==
+
+1. returns JSON with ERROR object - ОК
+2. returns code 404 if transactions does not exist - ОК
+3. returns code 102 if invalid hash  - ОК
+4. returns code 1 if wrong or missing API key - ОК
+
+== testGetTokenHistory_Success ==
+
+1. returns JSON with data - OK
+2. returned JSON contain field "operations" with transactions history - OK
+3. returns correct data with parameters "type" and "limit" - OK
+4. returns non-zero array if limit parameter equals 0 or 51 - OK
+
+== testGetTokenHistory_Error ==
+
+1. returns JSON with ERROR object - ОК
+2. returned empty JSON objects if type unknown token - OK
+3. returned error code 104 if invalid address format - OK
+4. returns code 1 if wrong or missing API key - ОК
+
+== testGetAddressHistory_Success ==
+
+1. returns JSON with data - OK
+2. returned JSON contain field "operations" with transactions history - OK
+3. returns correct data with parameters "type" and "limit" - OK
+4. returns correct data about token with 'token' parameter - ОК
+5. returns non-zero array if limit parameter equals 0 or 51 - OK
+
+== testGetAddressHistory_Error ==
+
+1. returns JSON with ERROR object - ОК
+2. returned empty JSON objects if type unknown token - OK
+3. returned error code 104 if invalid address format - OK
+4. returns code 1 if wrong or missing API key - ОК
+5. returns array with one object if limit parameter is wrong - OK
+6. returns array with one object if limit parameter is wrong - OK
+
+== testGetAddressTransactions_Success ==
+
+1. returns JSON with data - OK
+2. returned JSON contain array with transactions - OK
+3. returned array objects contain fields "timestamp" "from" "to" "hash" "value" "input" "success" - OK
+4. returns correct data about token with 'limit' parameter - ОК
+5. returns correct data about token with 'showZeroValues' parameter - ОК
+6. returns non-zero array if limit parameter equals 0 or 51 - OK
+
+== testGetAddressTransactions_Error ==
+
+1. returns JSON with ERROR object - ОК
+2. returned empty JSON objects if type unknown token - OK
+3. returned error code 104 if invalid address format - OK
+4. returns code 1 if wrong or missing API key - ОК
+5. returns array with one object if limit parameter is wrong - OK
+
+== testGetTopTokens_Success ==
+
+1. returns JSON with data - OK
+2. returned JSON contain field "operations" with transactions history - OK
+3. returns correct data with parameters "period" and "limit" - OK
+4. returns non-zero array if limit parameter equals 0 or 51 - OK
+
+== testGetTopTokens_Error ==
+
+1. returns JSON with ERROR object - ОК
+2. returned empty JSON objects if period is 0 - OK
+3. returns code 1 if wrong or missing API key - ОК
+4. returns array with one object if limit parameter is wrong - OK
+
+== testGetTokenHistoryGrouped_Success ==
+
+1. returns JSON with data - OK
+2. returned JSON contain field "countTxs" with objects - OK
+3. returns correct data about token with 'period' parameter - ОК
+
+== testGetTokenHistoryGrouped_Error ==
+
+1. returns JSON with ERROR object - ОК
+2. returned empty JSON objects if type unknown address - OK
+3. returned error code 104 if invalid address format - OK
+4. returns code 1 if wrong or missing API key - ОК
+
+== testGetTokenPriceHistoryGrouped_Success ==
+
+1. returns JSON with data - OK
+2. returned JSON contain field "history" with objects "countTxs" and "prices" - OK
+3. returns correct data about token with 'period' parameter - ОК
+
+== testGetTokenPriceHistoryGrouped_Error ==
+
+1. returns JSON with ERROR object - ОК
+2. returned empty JSON objects if type unknown address - OK
+3. returned error code 104 if invalid address format - OK
+4. returns code 1 if wrong or missing API key - ОК
