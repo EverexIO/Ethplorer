@@ -1,0 +1,15 @@
+{
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/EverexIO/phpunit-iterator"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.3",
+        "phpunit/phpunit": "3.7.*",
+        "EverexIO/phpunit-iterator": "dev-develop"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable" : false
+}

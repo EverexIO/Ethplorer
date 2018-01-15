@@ -1,2 +1,3 @@
 User-Agent: *
 Host: ethplorer.io
+Disallow: /service/csv.php

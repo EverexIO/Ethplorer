@@ -1,4 +1,22 @@
-<!DOCTYPE html>
+<?php
+/*!
+ * Copyright 2016 Everex https://everex.io
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+$aConfig = require dirname(__FILE__) . '/service/config.php';
+?><!DOCTYPE html>
 <html>
     <head>
         <title>Ethplorer: Widgets and Charts for Ethereum Tokens</title>
@@ -31,7 +49,7 @@
                 font-family: 'Open Sans', sans-serif;
             }
             .topdiv {
-                position: relative; 
+                position: relative;
                 min-height: 100vh;
                 padding-bottom: 250px;
             }
@@ -59,10 +77,10 @@
                 min-height: 8px;
             }
             .space-bottom {
-                margin-bottom: 40px;			
+                margin-bottom: 40px;
             }
             .space-top {
-                margin-top: 40px;			
+                margin-top: 40px;
             }
             .add-paddings {
                 padding: 20px;
@@ -236,7 +254,6 @@
                     <div class="navbar-header">
                         <a class="navbar-logo-small" href="/"><img title="Ethplorer" src="/favicon.ico"></a>
                         <a class="navbar-logo" href="/"><img title="Ethplorer" src="/images/ethplorer-logo-48.png"></a>
-                        <a class="navbar-logo-extra" href="https://www.everex.io/?from=ethp-hd"><img title="by Everex" src="/images/byeverex.png"></a>
                     </div>
                     <div id="navbar" class="navbar" style="margin-bottom: 0px;">
                         <ul class="nav navbar-nav navbar-right" id="searchform">
@@ -276,8 +293,8 @@
                                 <div class="col-xs-12 col-sm-4 col-md-3">
                                     <div class="alert alert-info">
                                         <p style="font-size: 1.0em;">
-                                            <i>Note: the most simple way to get a widget for your token is 
-                                            <br />1) find your token in Ethplorer, and 
+                                            <i>Note: the most simple way to get a widget for your token is
+                                            <br />1) find your token in Ethplorer, and
                                             <br />2) use the widget link there. </i>
                                         </p>
                                     </div>
@@ -298,7 +315,7 @@
                                 <div class="hidden-xs col-sm-1 col-md-2"></div>
                             </div>
                         </div>
-                        
+
                         <div class="block text-white" style="margin-top: 42px;">
                             <div class="widget-type-title">
                                 <h2>Chart Widgets</h2>
@@ -476,7 +493,7 @@ eWgs.push(function () {
             'tokenHistory', // Widget type
             {
                 address: '0xe94327d07fc17907b4db788e5adf2ed424addff6', // keep empty to show all tokens
-                limit: 5, // Number of records to show	
+                limit: 5, // Number of records to show
             }
 
         );
@@ -511,13 +528,13 @@ eWgs.push(function () {
         display: inline-block;
         width: 150px;
         white-space: nowrap;
-    } 
+    }
     #token-txs-11 .txs.big-screen-table td .tx-link{
         max-width: 120px;
     }
     #token-txs-11 .txs.big-screen-table td .tx-link:last-child{
         max-width: 150px;
-    }   
+    }
     #token-txs-11 .txs.big-screen-table td .tx-amount a:nth-child(1){
         max-width: 110px !important;
     }
@@ -538,7 +555,7 @@ eWgs.push(function () {
             'tokenHistory', // Widget type
             {
                 address: '0xe94327d07fc17907b4db788e5adf2ed424addff6', // keep empty to show all tokens
-                limit: 5, // Number of records to show	
+                limit: 5, // Number of records to show
             },
             {
                 header: '<div class="txs-header">WETH Recent Transactions</div>', // customized header
@@ -578,7 +595,7 @@ eWgs.push(function () {
             '#token-txs-12', // Placeholder element
             'topTokens', // Widget type
             {
-                limit: 10, // Number of records to show	
+                limit: 10, // Number of records to show
                 period: 30 // period of calculating
             }
 
@@ -666,6 +683,7 @@ eWgs.push(function () {
                 fbq('init', Ethplorer.Config.fb);
                 fbq('track', 'PageView');
             }
+            <?php if(isset($aConfig['scriptAddon'])) echo $aConfig['scriptAddon']; ?>
         </script>
     </body>
 </html>

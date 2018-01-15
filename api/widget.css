@@ -175,7 +175,7 @@
     padding-left: 0px;
     color: #8a8c85 !important;
     padding-bottom: 4px;
-    max-width: 32px;
+    max-width: 34px;
     width: 20px;
 }
 .ethplorer-widget.widget-topTokens a.tx-link.tx-unknown {
@@ -185,6 +185,152 @@
     max-width: 60vw;
 }
 
+.ethplorer-widget.widget-topTokens a[data-criteria] {
+    cursor: pointer;
+}
+
+
+.ethplorer-widget.widget-topTokens a[data-criteria].ewSelected {
+    cursor: default;
+    color: white;
+    text-decoration: none;
+}
+
+.ethplorer-widget.widget-topTokens .ewDiff {
+    max-width: 130px;
+    width: 90px;
+    text-align: right;
+}
+
+.ethplorer-widget.widget-topTokens .ewDiff .ewDiffUp {
+    color: #1e8c1e;
+}
+
+.ethplorer-widget.widget-topTokens .ewDiff .ewDiffDown {
+    color: #ae2525;
+}
+
+.ethplorer-widget.widget-topTokens .tx-field-sort {
+	text-align: right !important;
+	color: #dedede !important;
+}
+
+.widget-topTokens-tabs-row {
+    margin: 0 auto;
+    width: 100%;
+    padding-bottom: 20px;
+}
+.widget-topTokens-tabs-wrapper {
+    display: table;
+    width: 100%;
+}
+.widget-topTokens-tabs-wrapper_mobile {
+	margin: 0 auto;
+    width: 80%;
+}
+.widget-topTokens-tab {
+    text-align: left;
+    display: table-cell;
+    width: 33.3%;
+    border-bottom: 3px solid #47c2ff;
+    cursor: pointer;
+}
+.widget-topTokens-tab-active {
+    text-align: left;
+    position: relative;
+    border-bottom: 3px solid #ffffff;
+    cursor: default;
+}
+.widget-topTokens-tab-active .widget-topTokens-tab-title {
+    padding-left: 0;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 700;
+    padding-bottom: 7px;
+}
+.widget-topTokens-tab-active a {
+    cursor: default !important;
+    text-decoration: none;
+}
+.widget-topTokens-tab .widget-topTokens-tab-title {
+    padding-left: 0;
+    color: #47c2ff;
+    font-size: 14px;
+    font-weight: 400;
+    padding-bottom: 7px;
+}
+.widget-topTokens-tab a {
+    text-decoration: none;
+}
+.widget-topTokens-select {
+    background-color: rgb(0, 0, 0);
+    border: 3px solid #ffffff;
+    color: #ffffff;
+    padding: 16px 20px;
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 0;
+    outline: none;
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+}
+.txs-top-tokens-mobile {
+	width: 60% !important;
+	margin: 0 auto;
+}
+.ethplorer-widget .tx-field-mob {
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis !important;
+    color: #dedede !important;
+    border: 0 !important;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+.tx-field-price{
+	color: #47C2FF !important;
+}
+@media screen and (max-width: 768px) {
+    .widget-topTokens-tabs-wrapper {
+        display: none;
+    }
+    .widget-topTokens-tabs-wrapper_mobile {
+        display: block;
+    }
+}
+@media screen and (min-width: 768px) {
+    .widget-topTokens-tabs-wrapper {
+        display: table;
+    }
+    .widget-topTokens-tabs-wrapper_mobile {
+        display: none;
+    }
+}
+@media screen and (max-width: 700px) {
+    .txs-top-tokens {
+        display: none;
+    }
+    .txs-top-tokens-mobile {
+        display: table;
+    }
+}
+@media screen and (max-width: 450px) {
+	.txs-top-tokens-mobile {
+		width: 80% !important;
+	}
+}
+@media screen and (min-width: 700px) {
+    .txs-top-tokens {
+        display: table;
+    }
+    .txs-top-tokens-mobile {
+        display: none;
+    }
+}
 
 @media screen and (min-width: 999px) {
     .ethplorer-widget .tx-token {
@@ -229,10 +375,33 @@
     color: #D0D0D0;
 }
 
+.ethplorer-widget.widget-topTokens.theme-ethplorer {
+	max-width: 750px !important;
+}
+/*
+.ethplorer-widget.widget-topTokens.theme-ethplorer tr td:nth-child(1) {
+	color: white !important;
+}
+*/
+.ethplorer-widget.widget-topTokens.theme-ethplorer .tx-field-sort {
+	color: white !important;
+}
+
+.ethplorer-widget.widget-topTokens.theme-ethplorer .widget-topTokens-select {
+	color: white !important;
+	background-color: rgba(0, 0, 0, 0.4) !important;
+}
+
 .ethplorer-widget.theme-light {
     background-color: white;
 }
 
 .ethplorer-widget.theme-dark {
     color: #DEDEDE;
+}
+
+.tooltipRow {
+	display: inline-block;
+	white-space: nowrap;
+	margin-top: 5px;
 }

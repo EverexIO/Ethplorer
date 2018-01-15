@@ -14,17 +14,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-$codeVersion = "125";
-
+$aConfig = require dirname(__FILE__) . '/service/config.php';
 require dirname(__FILE__) . '/service/lib/ethplorer.php';
-$esCfg = require_once dirname(__FILE__) . '/service/config.php';
-$esCfg['mongo'] = FALSE; // No mongo connection
-$es = Ethplorer::db($esCfg);
+$es = Ethplorer::db(array());
+
+$codeVersion = isset($aConfig['codeVersion']) ? $aConfig['codeVersion'] : "179";
 
 $error = TRUE;
 $header = "";
-$rParts = explode('/', $_SERVER['REQUEST_URI']);
+$uri = $_SERVER['REQUEST_URI'];
+
+// Uri to lowercase
+if(preg_match("/[A-Z]+/", $uri) && (FALSE === strpos($uri, '1dea4'))){
+    header("Location: " . strtolower($uri));
+    die();
+}
+if(FALSE !== strpos($uri, '?')){
+    $uri = substr($uri, 0, strpos($uri, '?'));
+}
+$rParts = explode('/', $uri);
 foreach($rParts as $i => $part){
     $rParts[$i] = strtolower($part);
 }
@@ -35,6 +43,7 @@ if(3 === count($rParts)){
     }
     if(('address' === $rParts[1]) && $es->isValidAddress($rParts[2])){
         $header = "Address: " . $rParts[2];
+        $address = $rParts[2];
         $error = FALSE;
     }
     if(('token' === $rParts[1]) && $es->isValidAddress($rParts[2])){
@@ -44,9 +53,25 @@ if(3 === count($rParts)){
 }
 if($error){
     if(isset($rParts[1]) && !$rParts[1]){
-        header('Location:index.htm');
+        header('Location:/');
         die();
     }
+}
+$testWidget = true;
+if(isset($_GET['test'])){
+    $testWidget = true;
+}
+$debugEnabled = false;
+if(isset($_GET['debug']) && $_GET['debug']){
+    $debugId = $_GET['debug'];
+    $debugEnabled = true;
+}
+
+$hasNotes = isset($aConfig['adv']) && count($aConfig['adv']);
+
+$csvExport = '';
+if(is_array($rParts) && isset($rParts[2])){
+    $csvExport = ' <span class="export-csv-spinner"><i class="fa fa-spinner fa-spin"></i> Export...</span><span class="export-csv"><a class="download" rel="nofollow" target="_blank" href="/service/csv.php?data=' . $rParts[2] . '">Export as CSV</a></span>';
 }
 ?><!DOCTYPE html>
 <html>
@@ -56,6 +81,22 @@ if($error){
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
     <link rel="stylesheet" href="/css/ethplorer.css?v=<?=$codeVersion?>">
+<?php
+    // Load extensions CSS
+    if(isset($aConfig['extensions']) && is_array($aConfig['extensions'])){
+        foreach($aConfig['extensions'] as $extName => $aExtension){
+            $cv = isset($aExtension['version']) ? (int)$aExtension['version'] : false;
+            if(isset($aExtension['css'])){
+                $aExtension['js'] = (array)$aExtension['js'];
+                foreach($aExtension['css'] as $js){
+                    $jsf = "/extensions/" . $extName . "/" . $js;
+                    if(file_exists(dirname(__FILE__) . $jsf)){
+                        echo '    <link rel="stylesheet" href="' . $jsf . ($cv ? ("?v=" . $cv) : "") . '">' . "\n";
+                    }
+                }
+            }
+        }
+    } ?>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="referrer" content="never" />
@@ -66,17 +107,52 @@ if($error){
     <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+    <script src="https://www.google.com/jsapi"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script src="/js/bignumber.js"></script>
     <script src="/js/ethplorer.js?v=<?=$codeVersion?>"></script>
     <script src="/js/ethplorer-search.js?v=<?=$codeVersion?>"></script>
+<?php if($hasNotes):?><script src="/js/ethplorer-note.js?v=<?=$codeVersion?>"></script><?php endif; ?>
+<?php
+    // Load extensions JS
+    if(isset($aConfig['extensions']) && is_array($aConfig['extensions'])){
+        foreach($aConfig['extensions'] as $extName => $aExtension){
+            $cv = isset($aExtension['version']) ? (int)$aExtension['version'] : false;
+            if(isset($aExtension['js'])){
+                $aExtension['js'] = (array)$aExtension['js'];
+                foreach($aExtension['js'] as $js){
+                    $jsf = "/extensions/" . $extName . "/" . $js;
+                    if(file_exists(dirname(__FILE__) . $jsf)){
+                        echo '    <script src="' . $jsf . ($cv ? ("?v=" . $cv) : "") . '"></script>' . "\n";
+                    }
+                }
+            }
+        }
+    } ?>
+    <script src="/js/config.js"></script>
+    <script src="/js/md5.min.js"></script>
+    <script src="/js/sha3.min.js"></script>
+    <script src="/js/qrcode.min.js"></script>
+    <?php if(isset($address)){ ?>
+        <script>
+        var ethplorerWidgetPreload = [
+            {
+                method: "getPriceHistoryGrouped",
+                options: {address: '<?php echo $address; ?>'}
+            }
+        ];
+        </script>
+    <?php } ?>
+    <script src="/api/widget.js?v=<?=$codeVersion?>"></script>
 </head>
 <body>
 <div style="position: relative; min-height: 100vh;">
-    <nav class="navbar navbar-inverse" style="padding-bottom:0px; padding-top:0px;">
+    <nav class="navbar navbar-inverse">
         <div class="container">
             <div class="navbar-header">
-              <a class="navbar-logo" href="/"><img title="Ethplorer" src="/images/ethplorer-logo-48.png"></a>
+                <a class="navbar-logo-small" href="/"><img title="Ethplorer" src="/favicon.ico"></a>
+                <a class="navbar-logo" href="/"><img title="Ethplorer" src="/images/ethplorer-logo-48.png"></a>
+                <a class="navbar-logo-extra" href="https://www.everex.io/?from=ethp-hd"><img title="by Everex" src="/images/byeverex.png"></a>
             </div>
             <div id="navbar" class="navbar" style="margin-bottom: 0px;">
                 <ul class="nav navbar-nav navbar-right" id="searchform">
@@ -86,12 +162,15 @@ if($error){
                     </form>
                 </ul>
                 <ul class="nav navbar-nav navbar-right" id="topmenu">
+                    <li onclick="document.location.href='/top';">TOP-50</li>
                     <li onclick="document.location.href='/widgets';">Widgets</li>
                     <li onclick="document.location.href='https://github.com/EverexIO/Ethplorer/wiki/Ethplorer-API';">API</li>
+                    <li onclick="document.location.href='https://ethplorer.io/#subscribe';">Subscribe</li>
                 </ul>
             </div>
         </div>
     </nav>
+    <div id="ethplorer-note"></div>
     <div class="container">
         <div class="starter-template">
             <div id="page-create" class="page">
@@ -113,15 +192,38 @@ if($error){
                 </div>
 
                 <div>
+                <?php if(true){ ?>
+                    <div class="col-xs-12 col-sm-12">
+                        <h1 id="ethplorer-path"><?=$header?></h1>
+                    </div>
+                <?php }else{ ?>
                     <div class="hidden-xs col-sm-2"></div>
                     <div class="col-xs-12 col-sm-8">
                         <h1 id="ethplorer-path"><?=$header?></h1>
                     </div>
                     <div class="hidden-xs col-sm-2"></div>
+                <?php } ?>
                 </div>
 
                 <div class="clearfix"></div>
 
+                <?php if($testWidget){ ?>
+                    <script type="text/javascript">
+                        var testWidget = true;
+                    </script>
+                <?php }else{ ?>
+                    <script type="text/javascript">
+                        var testWidget = false;
+                    </script>
+                <?php } ?>
+
+                <?php if(true){ ?>
+                    <div id="widget-block" style="display:none;">
+                        <div class="col-xs-12 col-sm-12 token-price-history-grouped-widget">
+                            <div id="token-price-history-grouped-widget"></div>
+                        </div>
+                    </div>
+                <?php }else{ ?>
                 <style>
                     #token-history-grouped-widget {
                         margin-top: 0 !important;
@@ -139,9 +241,13 @@ if($error){
                     </div>
                     <div class="hidden-xs col-sm-1"></div>
                 </div>
+                <?php } ?>
                 <script type="text/javascript">
-                    if(typeof(eWgs) === 'undefined'){ document.write('<scr' + 'ipt src="/api/widget.js?' + new Date().getTime().toString().substr(0,7) + '" async></scr' + 'ipt>'); var eWgs = []; }
+                    if(typeof(eWgs) === 'undefined'){ var eWgs = []; }
                 </script>
+                <div class="col-xs-12 col-sm-12">
+                    <h1 id="ethplorer-alert"></h1>
+                </div>
 
                 <div id="txDetails" class="content-page">
                     <div>
@@ -189,7 +295,7 @@ if($error){
                                 <a class="tx-details-link">Transaction details</a>
                             </div>
                         </div>
-                        <div class="col-xs-12 col-md-6 token-related">
+                        <div class="col-xs-12 col-md-6 token-related" id="token-operation-block">
                             <div class="block">
                                 <div class="block-header"><h3><span class="token-name"></span> <span class="token-operation-type"></span></h3></div>
                                 <table class="table">
@@ -223,7 +329,7 @@ if($error){
                                 <a class="tx-details-link">Transaction details</a>
                             </div>
                         </div>
-                        <div class="col-xs-12 col-md-6 token-related">
+                        <div class="col-xs-12 col-md-6 token-related" id="token-information-block">
                             <div class="block">
                                 <div class="block-header"><h3>Token <span class="token-name"></span> Information</h3></div>
                                 <table class="table">
@@ -234,6 +340,10 @@ if($error){
                                 <tr>
                                     <td>Symbol</td>
                                     <td id="transaction-token-symbol" class="list-field"></td>
+                                </tr>
+                                <tr>
+                                    <td>Price</td>
+                                    <td id="transaction-token-price" data-type="price" class="list-field"></td>
                                 </tr>
                                 <tr>
                                     <td>Decimals</td>
@@ -296,7 +406,7 @@ if($error){
                                 </tr>
                                 <tr>
                                     <td>Value</td>
-                                    <td id="transaction-tx-value" class="list-field" data-type="ether"></td>
+                                    <td id="transaction-tx-value" class="list-field" data-type="ether-full"></td>
                                 </tr>
                                 <tr>
                                     <td>Gas Limit</td>
@@ -309,14 +419,18 @@ if($error){
                                 <tr>
                                     <td>Gas Price</td>
                                     <td id="transaction-tx-gasPrice" class="list-field" data-type="ether"></td>
-                                </tr>
-                                <tr>
-                                    <td>TX Fee</td>
-                                    <td id="transaction-tx-fee" class="list-field" data-type="ether"></td>
+                                 </tr>
+                                 <tr>
+                                    <td>Tx Cost</td>
+                                    <td id="transaction-tx-cost" class="list-field" data-type="ether-full"></td>
                                 </tr>
                                 <tr>
                                     <td>Nonce</td>
                                     <td id="transaction-tx-nonce" class="list-field"></td>
+                                </tr>
+                                <tr id="tx-method">
+                                    <td>Method</td>
+                                    <td style="font-family: monospace;color:#f8f577;" id="transaction-tx-method" class="list-field text-left"></td>
                                 </tr>
                                 <tr id="tx-parsed">
                                     <td>Parsed Data</td>
@@ -351,12 +465,20 @@ if($error){
                                 <td id="address-address" data-type="etherscan" data-options="no-contract" class="list-field"></td>
                             </tr>
                             <tr>
+                                <td>Created At</td>
+                                <td id="address-token-createdAt" data-type="localdate" data-options="no-contract" class="list-field"></td>
+                            </tr>
+                            <tr>
                                 <td>Creator</td>
                                 <td id="address-contract-creator" data-type="ethplorer" data-options="no-contract" class="list-field"></td>
                             </tr>
                             <tr>
+                                <td>Create Tx</td>
+                                <td id="address-token-createdTx" data-type="ethplorer" class="list-field"></td>
+                            </tr>
+                            <tr>
                                 <td>Balance</td>
-                                <td id="address-balance" data-type="ether" class="list-field"></td>
+                                <td id="address-balance" data-type="ether-full" class="list-field"></td>
                             </tr>
                             <tr>
                                 <td>Total In</td>
@@ -379,7 +501,11 @@ if($error){
                     </div>
                     <div class="col-xs-12 col-md-6">
                         <div class="block" id="address-token-balances">
-                            <div class="block-header"><h3>Token Balances</h3></div>
+                            <div class="block-header">
+                                <h3>Token Balances
+                                    <div id="address-balances-total"></div>
+                                </h3>
+                            </div>
                             <table class="table"></table>
                         </div>
                         <div class="block" id="address-chainy-info">
@@ -418,17 +544,21 @@ if($error){
                                 <td id="address-token-symbol" class="list-field"></td>
                             </tr>
                             <tr>
+                                <td>Price</td>
+                                <td id="address-token-price" data-type="price" class="list-field"></td>
+                            </tr>
+                            <tr>
                                 <td>Total Supply</td>
                                 <td id="address-token-totalSupply" class="list-field"></td>
                             </tr>
-                            <tr>
+                            <!--tr>
                                 <td>Total In</td>
                                 <td id="address-token-totalIn" class="list-field"></td>
                             </tr>
                             <tr>
                                 <td>Total Out</td>
                                 <td id="address-token-totalOut" class="list-field"></td>
-                            </tr>
+                            </tr-->
                             <tr>
                                 <td>Decimals</td>
                                 <td id="address-token-decimals" class="list-field"></td>
@@ -481,7 +611,7 @@ if($error){
                                     </div>
                                     <table class="table"></table>
                                 </div>
-                                <small>* all dates are displayed for <span class="local-time-offset"></span> timezone</small>
+                                <small>* all dates are displayed for <span class="local-time-offset"></span> timezone<?php echo $csvExport;?></small>
                             </div>
                         </div>
                         <div id="token-issuances-tab" class="tab-pane fade">
@@ -517,7 +647,7 @@ if($error){
                             </div>
                             <table class="table"></table>
                         </div>
-                        <small>* all dates are displayed for <span class="local-time-offset"></span> timezone</small>
+                        <small>* all dates are displayed for <span class="local-time-offset"></span> timezone<?php echo $csvExport;?></small>
                     </div>
                     <div class="col-xs-12" id="address-chainy-tx" style="display:none;">
                         <div class="block">
@@ -553,97 +683,80 @@ if($error){
         (d.head || d.body).appendChild(s);
     })();
     </script>
-    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-    <?php /*
-    <div class="navbar navbar-inverse footer" role="navigation" style="background:#0f0f0f;">
-        <div class="container">
-            <div class="text-center">
-                    <a href="/about.html" style="color: white;">About</a>
-                    &nbsp;&nbsp;&nbsp;
-                    <a href="/about.html#disqus_thread"  style="color: white;">Discuss ethplorer</a>
-                    &nbsp;&nbsp;&nbsp;
-                    <a href="https://github.com/EverexIO/Ethplorer" target="_blank">Sources</a>
-                    &nbsp;&nbsp;&nbsp;
-                    <a href="https://github.com/EverexIO/Ethplorer/wiki/Ethplorer-API" target="_blank">API</a>
-            </div>
-            <div class="copyrights">
-                <span style="color:white;">(c) 2016</span> <a href="https://everex.one" target="_blank">Everex</a>
-                &nbsp;&nbsp;&nbsp;
-                <a href="mailto://support@ethplorer.io">support@ethplorer.io</a><br>
-                <a href="/privacy.html">Privacy & Terms</a>
-            </div>
-        </div>
-    </div>
-     */ ?>
     <div class="footer">
         <div class="container">
             <div class="row">
-                <div class="col-xs-3">
-                    <a href="#" style="color:#ffffff;font-size:28px;font-weight:600;"><img src="/images/ethplorerlogowhite400.png" style="max-width: 140px;" alt=""></a>
+                <div class="col-xs-7 col-sm-3">
+                    <a href="#"><img src="/images/ethplorerlogowhite400.png" style="max-width: 140px;" alt=""></a>
                     <div>
                         <div style="color:#eeeeee;">© 2016-2017 <a href="https://everex.one/" target="_blank" class="small-link">Everex</a>
-                            <br><a href="mailto:support@ethplorer.io" class="small-link">support@ethplorer.io</a>
                             <br><a href="/privacy" class="small-link">Privacy &amp; Terms</a><br>
                         </div>
                     </div>
                 </div>
-                <div class="col-xs-3">
-                    <div class="footer-links" style="color: #ffffff;">
-                        <ul>
-                            <li><span style="font-weight: 600;"><a href="/about">About</a> </span></li>
-                            <li><a href="/widgets" style="" rel=""><strong>Widgets</strong></a></li>
-                            <li><span style="font-weight: 600;"><a href="/about#disqus_thread">Discuss ethplorer</a></span></li>
-                            <li><span style="font-weight: 600;"><a href="https://github.com/EverexIO/Ethplorer">Sources</a></span></li>
-                            <li><span style="font-weight: 600;"><a href="https://github.com/EverexIO/Ethplorer/wiki/Ethplorer-API">API</a></span></li>
-                            <li><a href="https://github.com/EverexIO/Ethplorer/issues"><strong>Submit Idea</strong></a></li>
-                        </ul>
-                    </div>
+                <div class="col-xs-5 col-sm-2 col-md-2 footer-links">
+                    <ul>
+                        <li><a href="/widgets">Widgets</a></li>
+                        <li><a href="https://github.com/EverexIO/Ethplorer">Sources</a></li>
+                        <li><a href="https://github.com/EverexIO/Ethplorer/wiki/Ethplorer-API">API</a></li>
+                        <li><a href="https://github.com/EverexIO/Ethplorer/issues">Github Issue</a></li>
+                        <li><a href="https://twitter.com/ethplorer">Twitter</a></li>
+                    </ul>
                 </div>
-                <div>
-                    <div style="color:#eeeeee;" data-customstyle="yes">
-                        <strong>Donation:</strong><br>
-                        <br>ETH:<br>0x0dE0BCb0703ff8F1aEb8C892eDbE692683bD8030
-                        <br>BTC:<br>1MKVGqyJA9YkVRuDsGCvnYVJ6ivNtfe289
-                    </div>
+                <div class="col-xs-5 col-sm-2 col-md-3 footer-links">
+                    <ul>
+                        <li><a href="http://bit.ly/ethp-contact" target="_blank">Contact</a></li>
+                        <li><a href="https://ethplorer.io/#subscribe">Subscribe</a></li>
+                        <li><a href="https://www.reddit.com/r/ethplorer/">Discuss at Reddit</a></li>
+                        <li><a href="http://bit.ly/ethp-contact" target="_blank">Update your Token info</a></li>
+                    </ul>
+                </div>
+                <div class="col-xs-7 col-sm-5 col-md-4 footer-donation">
+                    <strong>Donation:</strong><br>
+                    <br>ETH:<br>0x0dE0BCb0703ff8F1aEb8C892eDbE692683bD8030
+                    <br>BTC:<br>1MKVGqyJA9YkVRuDsGCvnYVJ6ivNtfe289
                 </div>
             </div>
         </div>
     </div>
 </div>
+<div id="qr-code-popup" title="Address QR-Code" style="padding:5px;"><span id="qr-code-address"></span><br/><br/><center><div id="qr-code"></div></center><br/></div>
 <script>
-<?php
-    // Build JS config from PHP code
-    echo "Ethplorer.Config = " . json_encode($esCfg['client'], JSON_OBJECT_AS_ARRAY);
-?>
-
-    $(document).ready(function(){
-        $.fn.bootstrapBtn = $.fn.button.noConflict();
-        Ethplorer.init();
+$(document).ready(function(){
+    $.fn.bootstrapBtn = $.fn.button.noConflict();
+    <?php if($debugEnabled): ?>
+    Ethplorer.debug = true;
+    Ethplorer.debugId = "<?=htmlspecialchars($debugId)?>";
+    <?php endif; ?>
+    Ethplorer.init();
+    $("#qr-code-popup").dialog({
+        'autoOpen': false,
+        'resizable': false,
+        'width': 'auto',
+        'height': 'auto',
+        'open': function(){
+        }
     });
-    if(Ethplorer.Config.ga){
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-        ga('create', Ethplorer.Config.ga, 'auto');
-        ga('send', 'pageview');
-    }
-</script>
-<!-- Facebook Pixel Code -->
-<script>
-!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
-n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
-document,'script','https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '1629579527306661');
-fbq('track', 'PageView');
-</script>
-<noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=1629579527306661&ev=PageView&noscript=1"
-/></noscript>
-<!-- DO NOT MODIFY -->
-<!-- End Facebook Pixel Code -->
+});
+if(Ethplorer.Config.ga){
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', Ethplorer.Config.ga, 'auto');
+    ga('send', 'pageview');
+}
+if(Ethplorer.Config.fb){
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+    document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', Ethplorer.Config.fb);
+    fbq('track', 'PageView');
+}
+<?php if(isset($aConfig['scriptAddon'])) echo $aConfig['scriptAddon']; ?></script>
 </body>
 </html>

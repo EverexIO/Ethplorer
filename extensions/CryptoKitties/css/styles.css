@@ -1,0 +1,82 @@
+.ck-kitty {
+    display:inline-block;
+    vertical-align:top;
+    height:200px;
+    width:200px;
+    border:1px solid white;
+    border-radius:6px;
+    color:white;
+    text-align:center;
+    margin-bottom:32px;
+}
+
+.ck-kitty-dashed {
+    border-style: dashed;
+}
+
+#ck-symbol {
+    display:inline-block;
+    vertical-align:top;
+    width:70px;
+    height:200px;
+    line-height:200px;
+    color:white;
+    font-size:64px;
+}
+
+.ck-show-small {
+    display:none;
+}
+
+#ck-full td,
+#ck-address-block tr.last td {
+    text-align: center;
+}
+
+#ck-full .ck-kitty,
+#ck-address-block tr.last td .ck-kitty {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+#ck-address-block tr.last td .ck-link {
+    cursor: pointer;
+    text-decoration: none !important;
+    border-bottom: 1px dashed #47C2FF;    
+}
+
+#ck-full td,
+#ck-address-block tr.last td {
+    padding-top:20px;
+}
+
+#ck-loading {
+    color: white;
+}
+
+.ck-full-close {
+    top: 24px;
+    position: absolute;
+    right: 32px;
+    font-size: 30px;
+    color: #444;
+    cursor: pointer;    
+}
+
+@media screen and (min-width: 992px) and (max-width: 1200px) {
+    .ck-has-kitties {
+        clear: left !important;
+        width: 100% !important;   
+    }
+}
+
+@media screen and (max-width: 550px) {
+    .ck-show-small {
+        display:inline;
+    }
+
+    #ck-symbol {
+        height:72px;
+        line-height:64px;
+    }
+}

@@ -20,6 +20,16 @@
  */
 class evxCache {
     /**
+     * Seconds in 1 hour
+     */
+    const HOUR = 3600;
+
+    /**
+     * Seconds in 30 days
+     */
+    const MONTH = 30 * 24 * 3600;
+
+    /**
      * Cache storage.
      *
      * @var array
@@ -34,14 +44,54 @@ class evxCache {
     protected $path;
 
     /**
+     * Cache driver name [file, memcached]
+     *
+     * @var string
+     */
+    protected $driver = 'file';
+
+    /**
+     * Cache driver object
+     *
+     * @var object
+     */
+    protected $oDriver = null;
+
+    /**
+     * Cache lifetime array
+     *
+     * @var array
+     */
+    protected $aLifetime = array();
+
+    /**
      * Constructor.
      *
      * @param string  $path  Cache files path
+     * @todo params to config
      */
-    public function __construct($path = __DIR__){
+    public function __construct($path = __DIR__, $driver = FALSE){
         $path = realpath($path);
         if(file_exists($path) && is_dir($path)){
             $this->path = $path;
+        }
+        if(FALSE !== $driver){
+            $this->driver = $driver;
+        }
+
+        if('memcached' === $this->driver){
+            if(class_exists('Memcached')){
+                $mc = new Memcached('ethplorer');
+                $mc->setOption(Memcached::OPT_LIBKETAMA_COMPATIBLE, true);
+                if (!count($mc->getServerList())) {
+                    // @todo: servers to config
+                    $mc->addServers(array(array('127.0.0.1', 11211)));
+                }
+                $this->oDriver = $mc;
+            }else{
+                die('Memcached calss not found, use filecache instead');
+                $this->driver = 'file';
+            }
         }
     }
 
@@ -55,6 +105,10 @@ class evxCache {
         $this->aData[$entryName] = $data;
     }
 
+    public function clearLocalCache(){
+        $this->aData = array();
+    }
+
     /**
      * Saves data to file.
      *
@@ -62,10 +116,29 @@ class evxCache {
      * @param mixed   $data       Data to store
      */
     public function save($entryName, $data){
+        $saveRes = false;
         $this->store($entryName, $data);
-        $filename = $this->path . '/' . $entryName . ".tmp";
-        $json = json_encode($data, JSON_PRETTY_PRINT);
-        file_put_contents($filename, $json);
+        switch($this->driver){
+            case 'memcached':
+                $lifetime = isset($this->aLifetime[$entryName]) ? (int)$this->aLifetime[$entryName] : 0;
+                if($lifetime > evxCache::MONTH){
+                    $lifetime = time() + $cacheLifetime;
+                }
+                if(!$lifetime){
+                    // 365 days if cache lifetime is not set
+                    $lifetime = time() + 12 * evxCache::MONTH + 5;
+                }
+                $saveRes = $this->oDriver->set($entryName, $data, $lifetime);
+                if(!in_array($entryName, array('tokens', 'rates')) && (0 !== strpos($entryName, 'rates-history-'))){
+                    break;
+                }
+            case 'file':
+                $filename = $this->path . '/' . $entryName . ".tmp";
+                $json = json_encode($data, JSON_PRETTY_PRINT);
+                $saveRes = !!file_put_contents($filename, $json);
+                break;
+        }
+        return $saveRes;
     }
 
     /**
@@ -88,20 +161,34 @@ class evxCache {
      */
     public function get($entryName, $default = NULL, $loadIfNeeded = FALSE, $cacheLifetime = FALSE){
         $result = $default;
+        $file = ('file' === $this->driver);
+        if(FALSE !== $cacheLifetime){
+            $this->aLifetime[$entryName] = $cacheLifetime;
+        }
         if($this->exists($entryName)){
             $result = $this->aData[$entryName];
         }elseif($loadIfNeeded){
-            $filename = $this->path . '/' . $entryName . ".tmp";
-            if(file_exists($filename)){
-                if(FALSE !== $cacheLifetime){
-                    $fileTime = filemtime($filename);
-                    if((time() - $fileTime) > $cacheLifetime){
-                        @unlink($filename);
-                        return $result;
-                    }
+            if('memcached' === $this->driver){
+                $result = $this->oDriver->get($entryName);
+                // @todo: move hardcode to controller
+                if(!$result || (in_array($entryName, array('tokens', 'rates')) || (0 === strpos($entryName, 'rates-history-')))){
+                    $file = TRUE;
                 }
-                $contents = @file_get_contents($filename);
-                $result = json_decode($contents, TRUE);
+            }
+            if($file){
+                $filename = $this->path . '/' . $entryName . ".tmp";
+                if(file_exists($filename)){
+                    if(FALSE !== $cacheLifetime){
+                        $fileTime = filemtime($filename);
+                        $gmtZero = gmmktime(0, 0, 0);
+                        if((($gmtZero > $fileTime) && ($cacheLifetime > evxCache::HOUR)) || ((time() - $fileTime) > $cacheLifetime)){
+                            @unlink($filename);
+                            return $result;
+                        }
+                    }
+                    $contents = @file_get_contents($filename);
+                    $result = json_decode($contents, TRUE);
+                }
             }
         }
         return $result;

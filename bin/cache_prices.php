@@ -15,6 +15,12 @@
  * limitations under the License.
  */
 
-require dirname(__FILE__) . '/lib/ethplorer.php';
+require dirname(__FILE__) . '/../service/lib/ethplorer.php';
+$aConfig = require_once dirname(__FILE__) . '/../service/config.php';
 
-Ethplorer::db(require_once dirname(__FILE__) . '/config.php')->getTokens(true);
+$es = Ethplorer::db($aConfig);
+$es->createProcessLock('prices.lock');
+foreach($aConfig['updateRates'] as $address){
+    $es->getCache()->clearLocalCache();
+    $es->getTokenPrice($address, TRUE);
+}
