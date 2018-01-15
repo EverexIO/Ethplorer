@@ -3,7 +3,8 @@ ethplorerWidget = {
     api: 'https://api.ethplorer.io',
 
     // Ethplorer URL
-    url: 'https://ethplorer.io',
+    url: 'https://www.rebellious.io/explorer',
+    // url: 'http://explorer.lo',
 
     // Widget types
     Type: {},
@@ -69,7 +70,8 @@ ethplorerWidget = {
         var linkElem = document.createElement('link');
         linkElem.setAttribute("rel", 'stylesheet');
         linkElem.setAttribute("type", 'text/css');
-        linkElem.setAttribute("href", ethplorerWidget.api + '/widget.css?v=' + ethplorerWidget.cssVersion);
+        // linkElem.setAttribute("href", ethplorerWidget.api + '/widget.css?v=' + ethplorerWidget.cssVersion);
+        linkElem.setAttribute("href", 'https://www.rebellious.io/explorer/api/widget.css?v=' + ethplorerWidget.cssVersion);
         document.getElementsByTagName("head")[0].appendChild(linkElem);
     },
     loadGoogleCharts: function(){
@@ -212,7 +214,7 @@ ethplorerWidget = {
             if(!addClass){
                 addClass = "";
             }
-            return '<a class="tx-link ' + addClass + '" href="' + ethplorerWidget.url + '/' + linkType + '/' + data + hash + '" title="' + title + '" target="_blank">' + text + '</a>';
+            return '<a class="tx-link ' + addClass + '" href="' + ethplorerWidget.url + '/' + linkType + '/' + data + hash + '" title="' + title + '">' + text + '</a>';
         },
 
         // Timestamp to local date
@@ -1164,16 +1166,16 @@ ethplorerWidget.Type['tokenHistoryGrouped'] = function(element, options, templat
             pointSize: 5,
         };
         if(this.options['theme'] == 'dark'){
-            def.colors = ['#47C2FF'];
-            def.titleTextStyle = {color: '#DEDEDE'};
+            def.colors = ['#00aab5'];
+            def.titleTextStyle = {color: '#00aab5'};
             def.backgroundColor = {fill: 'transparent'};
 
-            def.hAxis.textStyle = {color: '#DEDEDE'};
-            def.hAxis.titleTextStyle.color = '#DEDEDE';
-            def.hAxis.baselineColor = '#DEDEDE';
+            def.hAxis.textStyle = {color: '#ffffff'};
+            def.hAxis.titleTextStyle.color = '#ffffff';
+            def.hAxis.baselineColor = '#ffffff';
 
-            def.vAxis.textStyle = {color: '#DEDEDE'};
-            def.vAxis.titleTextStyle.color = '#DEDEDE';
+            def.vAxis.textStyle = {color: '#ffffff'};
+            def.vAxis.titleTextStyle.color = '#ffffff';
             def.vAxis.baselineColor = 'none';
         }
         var options = $.extend(true, def, this.options['options']);

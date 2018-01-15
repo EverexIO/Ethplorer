@@ -16,7 +16,7 @@
 
 EthplorerSearch = {
     data: {},
-    service: "/service/service.php",
+    service: "https://ethplorer.io/service/service.php",
     searchCache: {},
     init: function(form, el, cb){
         EthplorerSearch.form = form;
@@ -50,7 +50,7 @@ EthplorerSearch = {
             minLength: 1,
             select: function(event, ui){
                 if('undefined' !== typeof(ui.item[2])){
-                    document.location.href = '/address/' + ui.item[2];
+                    document.location.href = '/explorer/address/' + ui.item[2];
                 }
             }
         })

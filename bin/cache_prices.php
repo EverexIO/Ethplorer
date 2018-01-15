@@ -19,7 +19,6 @@ require dirname(__FILE__) . '/../service/lib/ethplorer.php';
 $aConfig = require_once dirname(__FILE__) . '/../service/config.php';
 
 $es = Ethplorer::db($aConfig);
-$es->createProcessLock('prices.lock');
 foreach($aConfig['updateRates'] as $address){
     $es->getCache()->clearLocalCache();
     $es->getTokenPrice($address, TRUE);

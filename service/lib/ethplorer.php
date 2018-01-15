@@ -18,7 +18,6 @@
 require_once __DIR__ . '/cache.php';
 require_once __DIR__ . '/mongo.php';
 require_once __DIR__ . '/profiler.php';
-require_once __DIR__ . '/lock.php';
 require_once __DIR__ . '/../../vendor/autoload.php';
 
 use \Litipk\BigNumbers\Decimal as Decimal;
@@ -59,13 +58,6 @@ class Ethplorer {
     protected $oCache;
 
     /**
-     * Process lock.
-     *
-     * @var evxProcessLock
-     */
-    protected $oProcessLock;
-
-    /**
      *
      * @var int
      */
@@ -101,7 +93,6 @@ class Ethplorer {
         $this->aSettings += array(
             "cacheDir" => dirname(__FILE__) . "/../cache/",
             "logsDir" => dirname(__FILE__) . "/../log/",
-            "locksDir" => dirname(__FILE__) . "/../lock/",
         );
         $cacheDriver = isset($this->aSettings['cacheDriver']) ? $this->aSettings['cacheDriver'] : 'file';
         $this->oCache = new evxCache($this->aSettings['cacheDir'], $cacheDriver);
@@ -122,16 +113,6 @@ class Ethplorer {
         if(($total > $slowQueryTime) && (php_sapi_name() !== 'cli')){
             evxProfiler::log($this->aSettings['logsDir'] . 'profiler-long-queries.log');
         }
-    }
-
-    /**
-     * Creates and returns process lock object
-     *
-     * @return evxProcessLock
-     */
-    public function createProcessLock($name){
-        $this->oProcessLock = new evxProcessLock($this->aSettings['locksDir'] . $name, $this->aSettings['lockTTL'], TRUE);
-        return $this->oProcessLock;
     }
 
     /**
@@ -565,7 +546,7 @@ class Ethplorer {
                 $this->oCache->save($cacheId, $balance);
             }else{
                 file_put_contents(__DIR__ . '/../log/parity.log', '[' . date('Y-m-d H:i:s') . '] - get balance for ' . $address . " failed\n", FILE_APPEND);
-                $this->oCache->save($cacheId, -1);
+                $this->oCache->save($cacheId, 0);
             }
         }
         $qTime = microtime(true) - $time;

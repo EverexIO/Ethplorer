@@ -1,0 +1,9 @@
+.footer-links {
+    list-style-type: none;
+}
+.footer-links li a {
+    font-family: 'Saira Condensed', sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    color: #000000 !important;
+}

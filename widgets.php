@@ -19,31 +19,31 @@ $aConfig = require dirname(__FILE__) . '/service/config.php';
 ?><!DOCTYPE html>
 <html>
     <head>
-        <title>Ethplorer: Widgets and Charts for Ethereum Tokens</title>
-        <link rel="stylesheet" href="/css/jquery-ui.min.css">
-        <link rel="stylesheet" href="/css/bootstrap.min.css">
-	<link rel="stylesheet" href="/css/font-awesome.min.css">
-        <link rel="stylesheet" href="/css/ethplorer.css?v=102>">
+        <title>Rebellious Expoler: Widgets and Charts for Ethereum Tokens</title>
+        <link rel="stylesheet" href="https://www.rebellious.io/explorer/css/jquery-ui.min.css">
+        <link rel="stylesheet" href="https://www.rebellious.io/explorer/css/bootstrap.min.css">
+	    <link rel="stylesheet" href="https://www.rebellious.io/explorer/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://www.rebellious.io/explorer/css/ethplorer.css?v=102>">
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="referrer" content="never" />
         <meta name="referrer" content="no-referrer" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-        <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
-        <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
-        <script src="/js/jquery-1.10.2.min.js"></script>
-        <script src="/js/jquery-ui.min.js?v=102"></script>
-        <script src="/js/bootstrap.min.js"></script>
-        <script src="/js/bignumber.js"></script>
-        <script src="/js/ethplorer.js?v=102"></script>
-        <script src="/js/ethplorer-search.js?v=102"></script>
-        <script src="/js/ethplorer-note.js?v=102"></script>
-        <script src="/js/ace.js"></script>
-        <script src="/js/config.js"></script>
+        <link rel="apple-touch-icon" sizes="180x180" href="https://www.rebellious.io/explorer/apple-touch-icon.png">
+        <link rel="icon" type="image/png" href="https://www.rebellious.io/explorer/favicon-32x32.png" sizes="32x32">
+        <link rel="icon" type="image/png" href="https://www.rebellious.io/explorer/favicon-16x16.png" sizes="16x16">
+        <script src="https://www.rebellious.io/explorer/js/jquery-1.10.2.min.js"></script>
+        <script src="https://www.rebellious.io/explorer/js/jquery-ui.min.js?v=102"></script>
+        <script src="https://www.rebellious.io/explorer/js/bootstrap.min.js"></script>
+        <script src="https://www.rebellious.io/explorer/js/bignumber.js"></script>
+        <script src="https://www.rebellious.io/explorer/js/ethplorer.js?v=102"></script>
+        <script src="https://www.rebellious.io/explorer/js/ethplorer-search.js?v=102"></script>
+        <script src="https://www.rebellious.io/explorer/js/ethplorer-note.js?v=102"></script>
+        <script src="https://www.rebellious.io/explorer/js/ace.js"></script>
+        <script src="https://www.rebellious.io/explorer/js/config.js"></script>
         <style type="text/css">
             body {
-                background: url(/images/bg.jpg) top left repeat-x black;
+                background: url(https://www.rebellious.io/explorer/images/bg.jpg) top left repeat-x black;
                 background-size: 100%;
                 /* background: linear-gradient(to top, #000, #152e47); */
                 font-family: 'Open Sans', sans-serif;
@@ -252,8 +252,8 @@ $aConfig = require dirname(__FILE__) . '/service/config.php';
             <nav class="navbar navbar-inverse" style="padding-bottom:0px; padding-top:0px;">
                 <div class="container">
                     <div class="navbar-header">
-                        <a class="navbar-logo-small" href="/"><img title="Ethplorer" src="/favicon.ico"></a>
-                        <a class="navbar-logo" href="/"><img title="Ethplorer" src="/images/ethplorer-logo-48.png"></a>
+                        <a class="navbar-logo-small" href="https://www.rebellious.io/explorer/"><img title="Ethplorer" src="https://www.rebellious.io/explorer/favicon.ico"></a>
+                        <a class="navbar-logo" href="https://www.rebellious.io/explorer/"><img title="Ethplorer" src="https://www.rebellious.io/explorer/images/rebl-logo.png"></a>
                     </div>
                     <div id="navbar" class="navbar" style="margin-bottom: 0px;">
                         <ul class="nav navbar-nav navbar-right" id="searchform">
@@ -263,10 +263,8 @@ $aConfig = require dirname(__FILE__) . '/service/config.php';
                             </form>
                         </ul>
                         <ul class="nav navbar-nav navbar-right" id="topmenu">
-                            <li onclick="document.location.href='/top';">TOP-50</li>
-                            <li onclick="document.location.href='/widgets';">Widgets</li>
-                            <li onclick="document.location.href='https://github.com/EverexIO/Ethplorer/wiki/Ethplorer-API';">API</li>
-                            <li onclick="document.location.href='https://ethplorer.io/#subscribe';">Subscribe</li>
+                            <li onclick="document.location.href='https://www.rebellious.io/explorer/top';">TOP-50</li>
+                            <li onclick="document.location.href='https://www.rebellious.io/explorer/widgets';">Widgets</li>
                         </ul>
                     </div>
                 </div>
@@ -626,35 +624,20 @@ eWgs.push(function () {
                 <div class="container">
                     <div class="row">
                         <div class="col-xs-7 col-sm-3">
-                            <a href="#"><img src="/images/ethplorerlogowhite400.png" style="max-width: 140px;" alt=""></a>
-                            <div>
-                                <div style="color:#eeeeee;">© 2016-2017 <a href="https://everex.one/" target="_blank" class="small-link">Everex</a>
-                                    <br><a href="mailto:support@ethplorer.io" class="small-link">support@ethplorer.io</a>
-                                    <br><a href="/privacy" class="small-link">Privacy &amp; Terms</a><br>
-                                </div>
-                            </div>
+                            
                         </div>
                         <div class="col-xs-5 col-sm-2 col-md-2 footer-links">
                             <ul>
-                                <li><a href="/widgets">Widgets</a></li>
-                                <li><a href="https://github.com/EverexIO/Ethplorer">Sources</a></li>
-                                <li><a href="https://github.com/EverexIO/Ethplorer/wiki/Ethplorer-API">API</a></li>
-                                <li><a href="https://github.com/EverexIO/Ethplorer/issues">Github Issue</a></li>
-                                <li><a href="https://twitter.com/ethplorer">Twitter</a></li>
+                                <li><a href="https://www.rebellious.io/explorer/widgets">Widgets</a></li>
+                                <li><a href="https://github.com/RebelliousToken">Sources</a></li>
+                                <li><a href="https://twitter.com/RebelliousCoin">Twitter</a></li>
                             </ul>
                         </div>
                         <div class="col-xs-5 col-sm-2 col-md-3 footer-links">
                             <ul>
-                                <li><a href="https://ethplorer.io/#contact">Contact</a></li>
-                                <li><a href="https://ethplorer.io/#subscribe">Subscribe</a></li>
-                                <li><a href="https://www.reddit.com/r/ethplorer/">Discuss at Reddit</a></li>
-                                <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSemDE0-vqUnJ7ToRdt1qR95iTbaMfq0FRXt7INMMJrm1IO4dQ/viewform?c=0&w=1">Update your Token info</a></li>
+                                <li><a href="mailto:info@rebellious.io">Contact</a></li>
+                                <li><a href="https://www.reddit.com/r/RebelliousCoin/">Discuss at Reddit</a></li>
                             </ul>
-                        </div>
-                        <div class="col-xs-7 col-sm-5 col-md-4 footer-donation">
-                            <strong>Donation:</strong><br>
-                            <br>ETH:<br>0x0dE0BCb0703ff8F1aEb8C892eDbE692683bD8030
-                            <br>BTC:<br>1MKVGqyJA9YkVRuDsGCvnYVJ6ivNtfe289
                         </div>
                     </div>
                 </div>

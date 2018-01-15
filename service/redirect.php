@@ -21,7 +21,7 @@ $keywords = isset($_GET['key']) ? strtolower($_GET['key']) : FALSE;
 if(isset($config['redirects']) && $keywords){
     foreach($config['redirects'] as $keyword => $address){
         if(FALSE !== strpos($keywords, strtolower($keyword))){
-            header('Location: /address/' . strtolower($address) . '?' . $_SERVER['QUERY_STRING']);
+            header('Location: /explorer/address/' . strtolower($address) . '?' . $_SERVER['QUERY_STRING']);
             die();
         }
     }

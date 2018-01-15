@@ -1,10 +1,11 @@
-@import url(https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700&subset=latin,cyrillic);
+@import url('https://fonts.googleapis.com/css?family=Saira+Condensed:400,500,600,700');
 
 body {
     padding: 0px;
     background-color: #000;
     min-height: 100vh;
     height: 100%;
+    font-family: 'Saira Condensed', sans-serif;
 }
 
 .pager .page {
@@ -14,11 +15,9 @@ body {
 }
 
 tr.paginationFooter td {
-    background: white;
+    /*background: white;*/
     padding-top:0px !important;
     padding-bottom: 0px !important;
-    border-bottom-left-radius: 8px;
-    border-bottom-right-radius: 8px;
     text-align: right;
 }
 
@@ -97,12 +96,12 @@ tr.paginationFooter td ul.pagination {
 }
 
 .nav-tabs {
-    border-bottom: 10px solid #fff;
+    border-bottom: 10px solid #002224;
 }
 
 .nav-tabs li a {
-    color: white;
-    border-bottom: 1px dashed white;
+    color: #00aab5;
+    border-bottom: none;
 }
 
 .nav-tabs li a:hover {
@@ -110,7 +109,7 @@ tr.paginationFooter td ul.pagination {
 }
 
 .nav-tabs li a span.dashed {
-    border-bottom: 1px dashed white;
+    border-bottom: 1px dashed #00aab5;
 }
 
 .nav-tabs li a:hover span.dashed {
@@ -121,14 +120,27 @@ tr.paginationFooter td ul.pagination {
     border-bottom: 0px dashed transparent;
 }
 
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
+    color: #fff;
+    cursor: default;
+    background-color: #002224;
+    border: 1px solid #002224;
+    border-bottom-color: transparent;
+}
+
 #topmenu li {
-    font-family: 'Open Sans', sans-serif;
-    font-size: 16px;
-    color: black;
-    font-weight: 600;
+    color: #00aab5;
+    font-size: 22px;
+    font-family: 'Saira Condensed', sans-serif;
+    line-height: 1.55;
+    font-weight: 500;
+    background-position: center center;
+    border-color: transparent;
+    border-style: solid;
+    text-transform: uppercase;
     box-sizing: content-box;
     -webkit-font-smoothing: antialiased;
-    padding: 16px;
+    padding: 7px 16px;
     cursor:pointer;
 }
 
@@ -160,9 +172,8 @@ tr.paginationFooter td ul.pagination {
 
 .content-page .block-header {
     padding-bottom: 10px;
-    background-color:white;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
+    background-color:#002224;
+    color: #00aab5;
 }
 
 .content-page table.table td {
@@ -180,7 +191,7 @@ tr.paginationFooter td ul.pagination {
 #token-issuances-tab .table tr:nth-child(even),
 #token-holders-tab .table tr:nth-child(even),
 tr.even {
-    background: #0f0f0f;
+    background: rgba(0,34,36,0.5);
 }
 
 #address-chainy-tx .table tr:nth-child(odd),
@@ -188,7 +199,7 @@ tr.even {
 #token-issuances-tab .table tr:nth-child(odd),
 #token-holders-tab .table tr:nth-child(odd),
 tr.odd {
-    background: #202020;
+    background: #002224;
 }
 
 #address-token-balances .table tr td.text-right {
@@ -299,13 +310,23 @@ a.local-link, a.local-link:visited, a.local-link:hover {
 }
 
 .footer {
-    font-family: 'Open Sans', sans-serif;
-    padding-top:60px;
-    padding-bottom:75px;
-    background-color:#0d0d0d;    
-    position: absolute;
+    padding-top: 55px;
+    background-repeat: no-repeat;
+    background: linear-gradient(to top, rgba(0,0,0,0) 20%, rgba(0,0,0,1)), url(https://www.rebellious.io/explorer/images/bg.png) no-repeat center;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    font-family: 'Saira Condensed', sans-serif;
+    background-color:#0d0d0d;
+    position: relative;
     width: 100%;
-    bottom: 0px;
+    bottom: 0;
+}
+
+.footer .container-fluid {
+    padding-top: 60px;
+    padding-bottom: 75px;
+    background-color: rgba(79,175,189,0.6);
 }
 
 .footer .small-link {
@@ -320,16 +341,14 @@ a.local-link, a.local-link:visited, a.local-link:hover {
 
 .footer-links li {
     display: block;
-    margin-bottom: 10px;
+    margin-bottom: 4px;
 }
 
 .footer-links li a{
-    color: #ffffff;
-    font-weight: 600;
-    border-bottom: 2px solid #1396e2;
-    -webkit-box-shadow: inset 0px -1px 0px 0px #1396e2;
-    -moz-box-shadow: inset 0px -1px 0px 0px #1396e2;
-    box-shadow: inset 0px -1px 0px 0px #1396e2;
+    font-family: 'Saira Condensed', sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    color: #000000 !important;
     text-decoration: none;
 }
 
@@ -371,9 +390,9 @@ td.list-field {
 .navbar-logo {
     float: left;
     height: 50px;
-    padding: 25px 15px;
+    padding: 7px 15px;
     line-height: 20px;
-    width: 170px;
+    width: 400px;
     position: absolute;
     z-index: 10000;
     padding-left: 0px;
@@ -396,7 +415,7 @@ td.list-field {
 
 
 .navbar-logo img {
-  width: 170px;
+  width: 100%;
   cursor: pointer;
 }
 
@@ -415,14 +434,6 @@ td.list-field {
 .navbar-logo-small img {
   height: 32px;
   cursor: pointer;
-}
-
-.table tr.last td:first-child {
-    border-bottom-left-radius: 8px;
-}
-
-.table tr.last td:last-child {
-    border-bottom-right-radius: 8px;
 }
 
 .multiop {
@@ -512,8 +523,8 @@ a.dashed {
     overflow: hidden;
     text-overflow: ellipsis;
     max-width: 100vw;
-    background-color: white;
-    border-radius: 8px;
+    background-color: #002224;
+    color: #00aab5;
     text-align: center;
     font-size: 22px;
     margin-top: 10px;
@@ -1306,4 +1317,17 @@ a.token-update {
 @keyframes hrhand{
     0%{transform:rotate(0deg)}
     100%{transform:rotate(360deg)}
+}
+
+.social-links {
+    max-width: 370px;
+    display: inline-block;
+}
+
+.social-links a {
+    text-decoration: none;
+}
+
+.social-links a:not(:last-of-type) {
+    margin-right: 3px;
 }

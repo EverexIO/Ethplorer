@@ -15,14 +15,14 @@
  */
 
 EthplorerNote = {
-    service: "/service/service.php",
+    service: "https://ethplorer.io/service/service.php",
     next: 0,
     notes: [],
     init: function(container){
         EthplorerNote.container = container;
-        if((document.location.host !== 'ethplorer.io') && (document.location.host.indexOf('ethplorer') < 0)){
-            EthplorerNote.service = '//ethplorer.io' + EthplorerNote.service;
-        }
+        // if((document.location.host !== 'ethplorer.io') && (document.location.host.indexOf('ethplorer') < 0)){
+        //     EthplorerNote.service = '//ethplorer.io' + EthplorerNote.service;
+        // }
         var inner = $('<DIV>');
         inner.addClass('ethplorer-note');
         EthplorerNote.container.append(inner);

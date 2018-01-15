@@ -1,7 +1,7 @@
 /* Widget outfit */
 .ethplorer-widget {
     text-align: center;
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Saira Condensed', sans-serif;
     min-height: 200px;
 }
 
@@ -22,8 +22,10 @@
 
 .ethplorer-widget .txs-header {
     padding: 5px;
-    color: #dedede;
-    font-size: 1.3em;
+    color: #00aab5;
+    font-size: 22px;
+    font-weight: 500;
+    text-transform: uppercase;
     position:relative;
 }
 
@@ -112,10 +114,12 @@
 .ethplorer-widget a.tx-link,
 .ethplorer-widget a.tx-link:visited,
 .ethplorer-widget a.tx-link:hover {
-    color: #47C2FF !important;
+    color: #ffffff !important;
     display: inline-block;
-    max-width: 120px;
+    max-width: 188px;
     overflow: hidden;
+    font-size: 15px;
+    font-weight: 500;
     text-overflow: ellipsis !important;
 }
 
@@ -124,7 +128,7 @@
    text-decoration: none !important;
 }
 .ethplorer-widget a.tx-link:hover {
-   text-decoration: underline !important;
+    color: #00aab5 !important;
 }
 .ethplorer-widget .tx-token a.tx-link,
 .ethplorer-widget .tx-token a.tx-link:visited,
@@ -140,7 +144,6 @@
     max-width: 140px;
     overflow: hidden;
     text-overflow: ellipsis !important;
-    color: #dedede !important;
 }
 
 .ethplorer-widget .txs-debug {
@@ -183,6 +186,14 @@
 }
 .ethplorer-widget.widget-topTokens a.tx-link {
     max-width: 60vw;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.ethplorer-widget.widget-topTokens .tx-field {
+    color: #fff;
+    font-size: 18px;
+    font-weight: 500;
 }
 
 .ethplorer-widget.widget-topTokens a[data-criteria] {
@@ -397,7 +408,7 @@
 }
 
 .ethplorer-widget.theme-dark {
-    color: #DEDEDE;
+    color: #ffffff;
 }
 
 .tooltipRow {

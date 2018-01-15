@@ -1,31 +1,31 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Ethplorer: Widgets and Charts for Ethereum Tokens</title>
-        <link rel="stylesheet" href="/css/jquery-ui.min.css">
-        <link rel="stylesheet" href="/css/bootstrap.min.css">
-	<link rel="stylesheet" href="/css/font-awesome.min.css">
-        <link rel="stylesheet" href="/css/ethplorer.css?v=102>">
+        <title>Rebellious Expoler: Widgets and Charts for Ethereum Tokens</title>
+        <link rel="stylesheet" href="https://www.rebellious.io/explorer/css/jquery-ui.min.css">
+        <link rel="stylesheet" href="https://www.rebellious.io/explorer/css/bootstrap.min.css">
+	    <link rel="stylesheet" href="https://www.rebellious.io/explorer/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://www.rebellious.io/explorer/css/ethplorer.css?v=102>">
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="referrer" content="never" />
         <meta name="referrer" content="no-referrer" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-        <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
-        <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
-        <script src="/js/jquery-1.10.2.min.js"></script>
-        <script src="/js/jquery-ui.min.js?v=102"></script>
-        <script src="/js/bootstrap.min.js"></script>
-        <script src="/js/bignumber.js"></script>
-        <script src="/js/ethplorer.js?v=102"></script>
-        <script src="/js/ethplorer-search.js?v=102"></script>
-        <script src="/js/ethplorer-note.js?v=102"></script>
-        <script src="/js/ace.js"></script>
-        <script src="/js/config.js"></script>
+        <link rel="apple-touch-icon" sizes="180x180" href="https://www.rebellious.io/explorer/apple-touch-icon.png">
+        <link rel="icon" type="image/png" href="https://www.rebellious.io/explorer/favicon-32x32.png" sizes="32x32">
+        <link rel="icon" type="image/png" href="https://www.rebellious.io/explorer/favicon-16x16.png" sizes="16x16">
+        <script src="https://www.rebellious.io/explorer/js/jquery-1.10.2.min.js"></script>
+        <script src="https://www.rebellious.io/explorer/js/jquery-ui.min.js?v=102"></script>
+        <script src="https://www.rebellious.io/explorer/js/bootstrap.min.js"></script>
+        <script src="https://www.rebellious.io/explorer/js/bignumber.js"></script>
+        <script src="https://www.rebellious.io/explorer/js/ethplorer.js?v=102"></script>
+        <script src="https://www.rebellious.io/explorer/js/ethplorer-search.js?v=102"></script>
+        <script src="https://www.rebellious.io/explorer/js/ethplorer-note.js?v=102"></script>
+        <script src="https://www.rebellious.io/explorer/js/ace.js"></script>
+        <script src="https://www.rebellious.io/explorer/js/config.js"></script>
         <style type="text/css">
             body {
-                background: url(/images/bg.jpg) top left repeat-x black;
+                background: url(https://www.rebellious.io/explorer/images/bg.jpg) top left repeat-x black;
                 background-size: 100%;
                 /* background: linear-gradient(to top, #000, #152e47); */
                 font-family: 'Open Sans', sans-serif;
@@ -33,7 +33,6 @@
             .topdiv {
                 position: relative; 
                 min-height: 100vh;
-                padding-bottom: 250px;
             }
             .bg-white{
                 color: #000;
@@ -46,7 +45,7 @@
                 background-color: #ccc !important;
             }
             div.bg-dark	{
-                background-color: #333 !important;
+                background-color: #002224 !important;
             }
             .round-top {
                 border-top-left-radius: 8px;
@@ -234,9 +233,9 @@
             <nav class="navbar navbar-inverse" style="padding-bottom:0px; padding-top:0px;">
                 <div class="container">
                     <div class="navbar-header">
-                        <a class="navbar-logo-small" href="/"><img title="Ethplorer" src="/favicon.ico"></a>
-                        <a class="navbar-logo" href="/"><img title="Ethplorer" src="/images/ethplorer-logo-48.png"></a>
-                        <a class="navbar-logo-extra" href="https://www.everex.io/?from=ethp-hd"><img title="by Everex" src="/images/byeverex.png"></a>
+                        <a class="navbar-logo-small" href="https://www.rebellious.io/explorer"><img title="Ethplorer" src="https://www.rebellious.io/explorer/favicon.ico"></a>
+                        <a class="navbar-logo" href="https://www.rebellious.io/explorer/"><img title="Ethplorer" src="https://www.rebellious.io/explorer/images/rebl-logo.png"></a>
+                        <a class="navbar-logo-extra" href="https://www.everex.io/?from=ethp-hd"></a>
                     </div>
                     <div id="navbar" class="navbar" style="margin-bottom: 0px;">
                         <ul class="nav navbar-nav navbar-right" id="searchform">
@@ -246,10 +245,8 @@
                             </form>
                         </ul>
                         <ul class="nav navbar-nav navbar-right" id="topmenu">
-                            <li onclick="document.location.href='/top';">TOP-50</li>
-                            <li onclick="document.location.href='/widgets';">Widgets</li>
-                            <li onclick="document.location.href='https://github.com/EverexIO/Ethplorer/wiki/Ethplorer-API';">API</li>
-                            <li onclick="document.location.href='https://ethplorer.io/#subscribe';">Subscribe</li>
+                            <li onclick="document.location.href='https://www.rebellious.io/explorer/top';">TOP-50</li>
+                            <li onclick="document.location.href='https://www.rebellious.io/explorer/widgets';">Widgets</li>
                         </ul>
                     </div>
                 </div>
@@ -309,100 +306,6 @@
                             <div class="block">
                                 <div class="row widget-title-charts">
                                     <div class="col-xs-8 text-white">
-                                        <h3>Token Activity Chart</h3>
-                                    </div>
-                                    <div class="col-xs-4 text-right">
-                                        <div id="ethplorer-textarea-1-popup" data-description="Setup in options 'token' and 'title' parameters to address and name of your token.">
-                                            <div id="ethplorer-textarea-1" class="widget-code"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row widget-title">
-<div id="token-history-grouped-1" data-textarea="ethplorer-textarea-1"></div>
-<script type="text/javascript" data-textarea="ethplorer-textarea-1">
-if (typeof (eWgs) === 'undefined') {
-    document.write('<scr' + 'ipt src="https://api.ethplorer.io/widget.js?' + new Date().getTime().toString().substr(0, 7) + '" async></scr' + 'ipt>');
-    var eWgs = [];
-}
-eWgs.push(function () {
-    ethplorerWidget.init(
-        '#token-history-grouped-1', // Placeholder element
-        'tokenHistoryGrouped', // Widget type
-        {
-            // token address
-            'address': '0xe94327d07fc17907b4db788e5adf2ed424addff6',
-            options: {
-                'title': 'Augur Rep Token Pulse',
-                'pointSize': 5,
-                'vAxis': {
-                    'title': 'Token operations',
-                }
-            }
-        }
-
-    );
-});
-</script>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="content-page space-bottom" style="display:block">
-                            <div class="block">
-                                <div class="row widget-title-charts">
-                                    <div class="col-xs-8 text-white">
-                                        <h3>Customized Tokens Activity Chart</h3>
-                                    </div>
-                                    <div class="col-xs-4 text-right">
-                                        <div id="ethplorer-textarea-2-popup">
-                                            <div id="ethplorer-textarea-2" class="widget-code"></div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row widget-title">
-                                    <div class="bg-gray">
-<div id="token-history-grouped-2" data-textarea="ethplorer-textarea-2"></div>
-<script type="text/javascript" data-textarea="ethplorer-textarea-2">
-    if (typeof (eWgs) === 'undefined') {
-        document.write('<scr' + 'ipt src="https://api.ethplorer.io/widget.js?' + new Date().getTime().toString().substr(0, 7) + '" async></scr' + 'ipt>');
-        var eWgs = [];
-    }
-    eWgs.push(function () {
-        ethplorerWidget.init(
-            '#token-history-grouped-2', // Placeholder element
-            'tokenHistoryGrouped', // Widget type
-            {
-                'period': 10,
-                'type': 'column', // supported types: area, column, line
-                options: {
-                    'title': 'Ethereum Tokens Pulse',
-                    'pointSize': 2,
-                    'hAxis': {
-                        'title': '10 days token operations chart',
-                        'titleTextStyle': {
-                            'color': '#3366CC',
-                            'italic': true
-                        }
-                    },
-                    'vAxis': {
-                        'title': 'Token operations',
-                    }
-                }
-            }
-
-        );
-    });
-</script>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="content-page space-bottom" style="display:block">
-                            <div class="block">
-                                <div class="row widget-title-charts">
-                                    <div class="col-xs-8 text-white">
                                         <h3>Dark Theme Chart</h3>
                                     </div>
                                     <div class="col-xs-4 text-right">
@@ -415,29 +318,23 @@ eWgs.push(function () {
                                     <div class="bg-dark">
 <div id="token-history-grouped-3" data-textarea="ethplorer-textarea-3"></div>
 <script type="text/javascript" data-textarea="ethplorer-textarea-3">
-    if (typeof (eWgs) === 'undefined') {
-        document.write('<scr' + 'ipt src="https://api.ethplorer.io/widget.js?' + new Date().getTime().toString().substr(0, 7) + '" async></scr' + 'ipt>');
-        var eWgs = [];
-    }
-    eWgs.push(function () {
+    if(typeof(eWgs) === 'undefined'){ document.write('<scr' + 'ipt src="https://www.rebellious.io/explorer/api/widget.js?' + new Date().getTime().toString().substr(0,7) + '" async></scr' + 'ipt>'); var eWgs = []; }
+    eWgs.push(function(){
+        $('strong').each(function(){ if('!!widget-ethplorer-daily!!' == $(this).text()){
+            $(this).after('<div class="ethplorerWidget" style="font-weight: 500;font-size:22px;color:#00aab5;position:relative;top:40px;text-transform: uppercase;">Rebellious Tokens Pulse</div><div id="token-history-grouped"></div><div><a href="https://www.rebellious.io/explorer/widgets" style="font-size:0.6em;color:#47C2FF !important;text-decoration: none !important;">Get and customize widget</a></div>'); $(this).remove();
+        } });
         ethplorerWidget.init(
-            '#token-history-grouped-3', // Placeholder element
-            'tokenHistoryGrouped', // Widget type
+            '#token-history-grouped-3',
+            'tokenHistoryGrouped',
             {
-                'theme': 'dark',
+                'period': 60,
+                'theme' : 'dark',
+                'address': '0x5F53f7A8075614b699Baad0bC2c899f4bAd8FBBF',
                 options: {
-
-                    'title': 'Ethereum Tokens Pulse',
-                    'hAxis': {
-                        'title': '90 days token operations chart',
-                    },
-                    'vAxis': {
-                        'title': 'Token operations',
-                    }
-                }
-            }
-
-        );
+                    'pointSize': 0,
+                    'hAxis': {'title': '60 days token operations chart' },
+                    'vAxis': {'title': 'Token operations'}}
+            });
     });
 </script>
                                     </div>
@@ -453,7 +350,7 @@ eWgs.push(function () {
 
                         <div class="content-page space-bottom" style="display:block">
                             <div class="block">
-                                <div class="row widget-title">
+                                <div class="row widget-title-charts">
                                     <div class="col-xs-8 text-white">
                                         <h3>Recent Token Activity</h3>
                                     </div>
@@ -463,11 +360,12 @@ eWgs.push(function () {
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row" style="padding-top: 20px;">
-<div id="token-txs-10" data-textarea="ethplorer-textarea-10"></div>
+                                <div class="row widget-title">
+                                    <div class="bg-dark">
+                                        <div id="token-txs-10" data-textarea="ethplorer-textarea-10"></div>
 <script type="text/javascript" data-textarea="ethplorer-textarea-10">
     if (typeof (eWgs) === 'undefined') {
-        document.write('<scr' + 'ipt src="https://api.ethplorer.io/widget.js?' + new Date().getTime().toString().substr(0, 7) + '" async></scr' + 'ipt>');
+        document.write('<scr' + 'ipt src="https://www.rebellious.io/explorer/api/widget.js?' + new Date().getTime().toString().substr(0, 7) + '" async></scr' + 'ipt>');
         var eWgs = [];
     }
     eWgs.push(function () {
@@ -475,88 +373,21 @@ eWgs.push(function () {
             '#token-txs-10', // Placeholder element
             'tokenHistory', // Widget type
             {
-                address: '0xe94327d07fc17907b4db788e5adf2ed424addff6', // keep empty to show all tokens
-                limit: 5, // Number of records to show	
+                address: '0x5F53f7A8075614b699Baad0bC2c899f4bAd8FBBF', // keep empty to show all tokens
+                limit: 5, // Number of records to show
             }
 
         );
     });
 </script>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
                         <div class="content-page space-bottom" style="display:block">
                             <div class="block">
-                                <div class="row widget-title">
-                                    <div class="col-xs-8 text-white">
-                                        <h3>Customized Token Activity Widget</h3>
-                                    </div>
-                                    <div class="col-xs-4 text-right">
-                                        <div id="ethplorer-textarea-11-popup">
-                                            <div id="ethplorer-textarea-11" class="widget-code"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row" style="padding-top: 20px;">
-<style data-textarea="ethplorer-textarea-11">
-    #token-txs-11 {
-        line-height: 1.8;
-        border-radius: 8px;
-        max-width: 700px !important;
-        background-blend-mode: darken;
-        background-color: rgba(21,12,70,0.9);
-    }
-    #token-txs-11 .txs.big-screen-table td .tx-amount{
-        display: inline-block;
-        width: 150px;
-        white-space: nowrap;
-    } 
-    #token-txs-11 .txs.big-screen-table td .tx-link{
-        max-width: 120px;
-    }
-    #token-txs-11 .txs.big-screen-table td .tx-link:last-child{
-        max-width: 150px;
-    }   
-    #token-txs-11 .txs.big-screen-table td .tx-amount a:nth-child(1){
-        max-width: 110px !important;
-    }
-    #token-txs-11 .txs.big-screen-table td .tx-amount  a:nth-child(2){
-        max-width: 50px !important;
-    }
-
-</style>
-<div id="token-txs-11" data-textarea="ethplorer-textarea-11"></div>
-<script type="text/javascript" data-textarea="ethplorer-textarea-11">
-    if (typeof (eWgs) === 'undefined') {
-        document.write('<scr' + 'ipt src="https://api.ethplorer.io/widget.js?' + new Date().getTime().toString().substr(0, 7) + '" async></scr' + 'ipt>');
-        var eWgs = [];
-    }
-    eWgs.push(function () {
-        ethplorerWidget.init(
-            '#token-txs-11', // Placeholder element
-            'tokenHistory', // Widget type
-            {
-                address: '0xe94327d07fc17907b4db788e5adf2ed424addff6', // keep empty to show all tokens
-                limit: 5, // Number of records to show	
-            },
-            {
-                header: '<div class="txs-header">WETH Recent Transactions</div>', // customized header
-                loader: '<div class="txs-loading">* L * O * A * D * I * N * G *<br><small>Please wait...</small></div>', // customized loader
-                bigScreenTable: '<tr><td>%from% <span class="tx-send">sent</span> <span class="tx-amount">%amount% %token%</span> <span class="tx-send">to</span> %to% <span class="tx-send">at</span><span class="tx-date"> %datetime%</span></td></tr>'
-
-            }
-
-        );
-    });
-</script>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="content-page space-bottom" style="display:block">
-                            <div class="block">
-                                <div class="row widget-title">
+                                <div class="row widget-title-charts">
                                     <div class="col-xs-8 text-white">
                                         <h3>Top Tokens by Activity</h3>
                                     </div>
@@ -566,11 +397,12 @@ eWgs.push(function () {
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row" style="padding-top: 20px;">
-<div id="token-txs-12" data-textarea="ethplorer-textarea-12"></div>
+                                <div class="row widget-title">
+                                    <div class="bg-dark">
+                                        <div id="token-txs-12" data-textarea="ethplorer-textarea-12"></div>
 <script type="text/javascript" data-textarea="ethplorer-textarea-12">
     if (typeof (eWgs) === 'undefined') {
-        document.write('<scr' + 'ipt src="https://api.ethplorer.io/widget.js?' + new Date().getTime().toString().substr(0, 7) + '" async></scr' + 'ipt>');
+        document.write('<scr' + 'ipt src="https://www.rebellious.io/explorer/widget.js?' + new Date().getTime().toString().substr(0, 7) + '" async></scr' + 'ipt>');
         var eWgs = [];
     }
     eWgs.push(function () {
@@ -578,13 +410,14 @@ eWgs.push(function () {
             '#token-txs-12', // Placeholder element
             'topTokens', // Widget type
             {
-                limit: 10, // Number of records to show	
+                limit: 10, // Number of records to show
                 period: 30 // period of calculating
             }
 
         );
     });
 </script>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -605,39 +438,74 @@ eWgs.push(function () {
                     (d.head || d.body).appendChild(s);
                 })();
             </script>
+            <div class="container-fluid" style="position: relative;z-index: 10;width: 100%;">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <div style="color: #00aab5;font-size: 22px;font-family: 'Saira Condensed', sans-serif;line-height: 1.3;font-weight: 500;background-position: center center;border-color: transparent;border-style: solid;display: block;text-transform: uppercase;margin-bottom: 20px">
+                            Rebellious is currently listed on:
+                        </div>
+                        <a href="https://www.bit-z.com/user/signup?pid=1135052&lang=en"><img src="https://www.rebellious.io/explorer/images/bitz.png" width="168"></a>
+                        <br><br>
+                        <div class="social-links">
+                            <a href="https://www.reddit.com/r/RebelliousCoin/">
+                                <img src="https://www.rebellious.io/explorer/images/Social_00aab5_04.png" alt="" width="50" height="50">
+                            </a>
+                            <a href="https://twitter.com/RebelliousCoin">
+                                <img src="https://www.rebellious.io/explorer/images/Social_00aab5_0.png" alt="" width="50" height="50">
+                            </a>
+                            <a href="https://t.me/RebelliousCoin">
+                                <img src="https://www.rebellious.io/explorer/images/Social_00aab5_02.png" alt="" width="50" height="50">
+                            </a>
+                            <a href="https://www.youtube.com/RebelliousCoin">
+                                <img src="https://www.rebellious.io/explorer/images/Social_00aab5_03.png" alt="" width="50" height="50">
+                            </a>
+                            <a href="https://bitcointalk.org/index.php?topic=2357352.0">
+                                <img src="https://www.rebellious.io/explorer/images/Social_00aab5_06.png" alt="" width="50" height="50">
+                            </a>
+                            <a href="https://discordapp.com/invite/q4yBxct">
+                                <img src="https://www.rebellious.io/explorer/images/Social_00aab5_07.png" alt="" width="50" height="50">
+                            </a>
+                            <a href="https://github.com/RebelliousToken">
+                                <img src="https://www.rebellious.io/explorer/images/Social_00aab5_08.png" alt="" width="50" height="50">
+                            </a>
+                            <a href="https://www.cryptocompare.com/coins/rebl/forum/BTC">
+                                <img src="https://www.rebellious.io/explorer/images/Social_00aab5_010.png" alt="" width="50" height="50">
+                            </a>
+                            <a href="https://www.facebook.com/RebelliousCoin/">
+                                <img src="https://www.rebellious.io/explorer/images/Social_00aab5_011.png" alt="" width="50" height="50">
+                            </a>
+                            <a href="https://www.rebellious.io/rebellious-whitepaper/">
+                                <img src="https://www.rebellious.io/explorer/images/Social_00aab5_09.png" alt="" width="50" height="50">
+                            </a>
+                            <a href="http://qm.qq.com/cgi-bin/qm/qr?k=bPP7xx07QibitJnyOzAqF-VNgyCno0vR">
+                                <img src="https://www.rebellious.io/explorer/images/Social_00aab5_15.png" alt="" width="50" height="50">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="footer">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-xs-7 col-sm-3">
-                            <a href="#"><img src="/images/ethplorerlogowhite400.png" style="max-width: 140px;" alt=""></a>
-                            <div>
-                                <div style="color:#eeeeee;">© 2016-2017 <a href="https://everex.one/" target="_blank" class="small-link">Everex</a>
-                                    <br><a href="mailto:support@ethplorer.io" class="small-link">support@ethplorer.io</a>
-                                    <br><a href="/privacy" class="small-link">Privacy &amp; Terms</a><br>
-                                </div>
+                <div class="container-fluid">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-xs-7 col-sm-5">
+                                <a href="#">
+                                    <img src="https://www.rebellious.io/explorer/images/rebl-logo-white.png" style="max-width: 270px;" alt="">
+                                </a>
                             </div>
-                        </div>
-                        <div class="col-xs-5 col-sm-2 col-md-2 footer-links">
-                            <ul>
-                                <li><a href="/widgets">Widgets</a></li>
-                                <li><a href="https://github.com/EverexIO/Ethplorer">Sources</a></li>
-                                <li><a href="https://github.com/EverexIO/Ethplorer/wiki/Ethplorer-API">API</a></li>
-                                <li><a href="https://github.com/EverexIO/Ethplorer/issues">Github Issue</a></li>
-                                <li><a href="https://twitter.com/ethplorer">Twitter</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-xs-5 col-sm-2 col-md-3 footer-links">
-                            <ul>
-                                <li><a href="https://ethplorer.io/#contact">Contact</a></li>
-                                <li><a href="https://ethplorer.io/#subscribe">Subscribe</a></li>
-                                <li><a href="https://www.reddit.com/r/ethplorer/">Discuss at Reddit</a></li>
-                                <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSemDE0-vqUnJ7ToRdt1qR95iTbaMfq0FRXt7INMMJrm1IO4dQ/viewform?c=0&w=1">Update your Token info</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-xs-7 col-sm-5 col-md-4 footer-donation">
-                            <strong>Donation:</strong><br>
-                            <br>ETH:<br>0x0dE0BCb0703ff8F1aEb8C892eDbE692683bD8030
-                            <br>BTC:<br>1MKVGqyJA9YkVRuDsGCvnYVJ6ivNtfe289
+                            <div class="col-xs-5 col-sm-2 col-md-2 footer-links">
+                                <ul>
+                                    <li><a href="https://www.rebellious.io/explorer/widgets">Widgets</a></li>
+                                    <li><a href="https://github.com/RebelliousToken">Sources</a></li>
+                                    <li><a href="https://twitter.com/RebelliousCoin">Twitter</a></li>
+                                </ul>
+                            </div>
+                            <div class="col-xs-5 col-sm-2 col-md-3 footer-links">
+                                <ul>
+                                    <li><a href="mailto:info@rebellious.io">Contact</a></li>
+                                    <li><a href="https://www.reddit.com/r/RebelliousCoin/">Discuss at Reddit</a></li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>

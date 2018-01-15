@@ -18,7 +18,7 @@ $aConfig = require dirname(__FILE__) . '/service/config.php';
 require dirname(__FILE__) . '/service/lib/ethplorer.php';
 $es = Ethplorer::db(array());
 
-$codeVersion = isset($aConfig['codeVersion']) ? $aConfig['codeVersion'] : "179";
+$codeVersion = isset($aConfig['codeVersion']) ? $aConfig['codeVersion'] : "182";
 
 $error = TRUE;
 $header = "";
@@ -36,24 +36,24 @@ $rParts = explode('/', $uri);
 foreach($rParts as $i => $part){
     $rParts[$i] = strtolower($part);
 }
-if(3 === count($rParts)){
-    if(('tx' === $rParts[1]) && $es->isValidTransactionHash($rParts[2])){
-        $header = "Transaction hash: " . $rParts[2];
+if(4 === count($rParts)){
+    if(('tx' === $rParts[2]) && $es->isValidTransactionHash($rParts[3])){
+        $header = "Transaction hash: " . $rParts[3];
         $error = FALSE;
     }
-    if(('address' === $rParts[1]) && $es->isValidAddress($rParts[2])){
-        $header = "Address: " . $rParts[2];
-        $address = $rParts[2];
+    if(('address' === $rParts[2]) && $es->isValidAddress($rParts[3])){
+        $header = "Address: " . $rParts[3];
+        $address = $rParts[3];
         $error = FALSE;
     }
-    if(('token' === $rParts[1]) && $es->isValidAddress($rParts[2])){
-        $header = "Token address: " . $rParts[2];
+    if(('token' === $rParts[2]) && $es->isValidAddress($rParts[3])){
+        $header = "Token address: " . $rParts[3];
         $error = FALSE;
     }
 }
 if($error){
-    if(isset($rParts[1]) && !$rParts[1]){
-        header('Location:/');
+    if(isset($rParts[2]) && !$rParts[2]){
+        header('Location:/page568524.html');
         die();
     }
 }
@@ -70,17 +70,17 @@ if(isset($_GET['debug']) && $_GET['debug']){
 $hasNotes = isset($aConfig['adv']) && count($aConfig['adv']);
 
 $csvExport = '';
-if(is_array($rParts) && isset($rParts[2])){
-    $csvExport = ' <span class="export-csv-spinner"><i class="fa fa-spinner fa-spin"></i> Export...</span><span class="export-csv"><a class="download" rel="nofollow" target="_blank" href="/service/csv.php?data=' . $rParts[2] . '">Export as CSV</a></span>';
+if(is_array($rParts) && isset($rParts[3])){
+    $csvExport = ' <span class="export-csv-spinner"><i class="fa fa-spinner fa-spin"></i> Export...</span><span class="export-csv"><a class="download" rel="nofollow" target="_blank" href="https://www.rebellious.io/explorer/service/csv.php?data=' . $rParts[3] . '">Export as CSV</a></span>';
 }
 ?><!DOCTYPE html>
 <html>
 <head>
-    <title>Ethplorer<?php if($header){ echo ": " . $header; } ?></title>
+    <title>Rebellious Expoler<?php if($header){ echo ": " . $header; } ?></title>
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/css/ethplorer.css?v=<?=$codeVersion?>">
+    <link rel="stylesheet" href="https://www.rebellious.io/explorer/css/ethplorer.css?v=<?=$codeVersion?>">
 <?php
     // Load extensions CSS
     if(isset($aConfig['extensions']) && is_array($aConfig['extensions'])){
@@ -102,17 +102,17 @@ if(is_array($rParts) && isset($rParts[2])){
     <meta name="referrer" content="never" />
     <meta name="referrer" content="no-referrer" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
-    <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://www.rebellious.io/explorer/apple-touch-icon.png">
+    <link rel="icon" type="image/png" href="https://www.rebellious.io/explorer/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="https://www.rebellious.io/explorer/favicon-16x16.png" sizes="16x16">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
     <script src="https://www.google.com/jsapi"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    <script src="/js/bignumber.js"></script>
-    <script src="/js/ethplorer.js?v=<?=$codeVersion?>"></script>
-    <script src="/js/ethplorer-search.js?v=<?=$codeVersion?>"></script>
-<?php if($hasNotes):?><script src="/js/ethplorer-note.js?v=<?=$codeVersion?>"></script><?php endif; ?>
+    <script src="https://www.rebellious.io/explorer/js/bignumber.js"></script>
+    <script src="https://www.rebellious.io/explorer/js/ethplorer.js?v=<?=$codeVersion?>"></script>
+    <script src="https://www.rebellious.io/explorer/js/ethplorer-search.js?v=<?=$codeVersion?>"></script>
+<?php if($hasNotes):?><script src="https://www.rebellious.io/explorer/js/ethplorer-note.js?v=<?=$codeVersion?>"></script><?php endif; ?>
 <?php
     // Load extensions JS
     if(isset($aConfig['extensions']) && is_array($aConfig['extensions'])){
@@ -129,10 +129,10 @@ if(is_array($rParts) && isset($rParts[2])){
             }
         }
     } ?>
-    <script src="/js/config.js"></script>
-    <script src="/js/md5.min.js"></script>
-    <script src="/js/sha3.min.js"></script>
-    <script src="/js/qrcode.min.js"></script>
+    <script src="https://www.rebellious.io/explorer/js/config.js"></script>
+    <script src="https://www.rebellious.io/explorer/js/md5.min.js"></script>
+    <script src="https://www.rebellious.io/explorer/js/sha3.min.js"></script>
+    <script src="https://www.rebellious.io/explorer/js/qrcode.min.js"></script>
     <?php if(isset($address)){ ?>
         <script>
         var ethplorerWidgetPreload = [
@@ -143,16 +143,16 @@ if(is_array($rParts) && isset($rParts[2])){
         ];
         </script>
     <?php } ?>
-    <script src="/api/widget.js?v=<?=$codeVersion?>"></script>
+    <script src="https://www.rebellious.io/explorer/api/widget.js?v=<?=$codeVersion?>"></script>
 </head>
 <body>
 <div style="position: relative; min-height: 100vh;">
     <nav class="navbar navbar-inverse">
         <div class="container">
             <div class="navbar-header">
-                <a class="navbar-logo-small" href="/"><img title="Ethplorer" src="/favicon.ico"></a>
-                <a class="navbar-logo" href="/"><img title="Ethplorer" src="/images/ethplorer-logo-48.png"></a>
-                <a class="navbar-logo-extra" href="https://www.everex.io/?from=ethp-hd"><img title="by Everex" src="/images/byeverex.png"></a>
+                <a class="navbar-logo-small" href="https://www.rebellious.io/explorer/"><img title="Ethplorer" src="https://www.rebellious.io/explorer/favicon.ico"></a>
+                <a class="navbar-logo" href="https://www.rebellious.io/explorer/"><img title="Ethplorer" src="https://www.rebellious.io/explorer/images/rebl-logo.png"></a>
+                <a class="navbar-logo-extra" href="https://www.everex.io/?from=ethp-hd"></a>
             </div>
             <div id="navbar" class="navbar" style="margin-bottom: 0px;">
                 <ul class="nav navbar-nav navbar-right" id="searchform">
@@ -162,10 +162,8 @@ if(is_array($rParts) && isset($rParts[2])){
                     </form>
                 </ul>
                 <ul class="nav navbar-nav navbar-right" id="topmenu">
-                    <li onclick="document.location.href='/top';">TOP-50</li>
-                    <li onclick="document.location.href='/widgets';">Widgets</li>
-                    <li onclick="document.location.href='https://github.com/EverexIO/Ethplorer/wiki/Ethplorer-API';">API</li>
-                    <li onclick="document.location.href='https://ethplorer.io/#subscribe';">Subscribe</li>
+                    <li onclick="document.location.href='https://www.rebellious.io/explorer/top';">TOP-50</li>
+                    <li onclick="document.location.href='https://www.rebellious.io/explorer/widgets';">Widgets</li>
                 </ul>
             </div>
         </div>
@@ -263,7 +261,7 @@ if(is_array($rParts) && isset($rParts[2])){
 
                         <div class="col-xs-12 col-md-6 chainy">
                             <div class="block">
-                                <div class="block-header"><h3><a href="/address/0xf3763c30dd6986b53402d41a8552b8f7f6a6089b" style="text-decoration: none;">Chainy</a> <span id="chainy-op"><span></h3></div>
+                                <div class="block-header"><h3><a href="https://www.rebellious.io/explorer/address/0xf3763c30dd6986b53402d41a8552b8f7f6a6089b" style="text-decoration: none;">Chainy</a> <span id="chainy-op"><span></h3></div>
                                 <table class="table">
                                 <tr>
                                     <td>URL</td>
@@ -510,7 +508,7 @@ if(is_array($rParts) && isset($rParts[2])){
                         </div>
                         <div class="block" id="address-chainy-info">
                             <div class="block-header">
-                                <img src="/images/chainy.png?new" class="token-logo" align="left">
+                                <img src="https://www.rebellious.io/explorer/images/chainy.png?new" class="token-logo" align="left">
                                 <h3>Chainy Information</h3>
                             </div>
                             <table class="table">
@@ -604,7 +602,7 @@ if(is_array($rParts) && isset($rParts[2])){
                     <div class="tab-content">
                         <div id="token-transfers-tab" class="tab-pane fade in active">
                             <div class="col-xs-12" id="address-token-transfers">
-                                <div class="block">
+                                <div class="block" style="margin-top: 0;">
                                     <div class="block-header">
                                         <h3>Token <span class="address-token-name"></span> Transfers</h3>
                                         <div class="total-records"></div>
@@ -616,7 +614,7 @@ if(is_array($rParts) && isset($rParts[2])){
                         </div>
                         <div id="token-issuances-tab" class="tab-pane fade">
                             <div class="col-xs-12" id="address-issuances">
-                                <div class="block">
+                                <div class="block" style="margin-top: 0;">
                                     <div class="block-header">
                                         <h3>Token <span class="address-token-name"></span> Issuances</h3>
                                         <div class="total-records"></div>
@@ -628,7 +626,7 @@ if(is_array($rParts) && isset($rParts[2])){
                         </div>
                         <div id="token-holders-tab" class="tab-pane fade">
                             <div class="col-xs-12" id="address-token-holders">
-                                <div class="block">
+                                <div class="block" style="margin-top: 0;">
                                     <div class="block-header">
                                         <h3>Token <span class="address-token-name"></span> Holders</h3>
                                         <div class="total-records"></div>
@@ -664,59 +662,76 @@ if(is_array($rParts) && isset($rParts[2])){
             </div>
         </div>
     </div>
-    <div id="disqus_thread" class="container"></div>
-    <script>
-
-    /**
-     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
-     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables */
-    /*
-    var disqus_config = function () {
-        this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
-        this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-    };
-    */
-    (function() { // DON'T EDIT BELOW THIS LINE
-        var d = document, s = d.createElement('script');
-        s.src = '//https-ethplorer-io.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-    })();
-    </script>
-    <div class="footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-7 col-sm-3">
-                    <a href="#"><img src="/images/ethplorerlogowhite400.png" style="max-width: 140px;" alt=""></a>
-                    <div>
-                        <div style="color:#eeeeee;">© 2016-2017 <a href="https://everex.one/" target="_blank" class="small-link">Everex</a>
-                            <br><a href="/privacy" class="small-link">Privacy &amp; Terms</a><br>
-                        </div>
-                    </div>
+    <div class="container-fluid" style="position: relative;margin-bottom: -20px;z-index: 10;width: 100%;">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <div style="color: #00aab5;font-size: 22px;font-family: 'Saira Condensed', sans-serif;line-height: 1.3;font-weight: 500;background-position: center center;border-color: transparent;border-style: solid;display: block;text-transform: uppercase;margin-bottom: 20px">
+                    Rebellious is currently listed on:
                 </div>
-                <div class="col-xs-5 col-sm-2 col-md-2 footer-links">
-                    <ul>
-                        <li><a href="/widgets">Widgets</a></li>
-                        <li><a href="https://github.com/EverexIO/Ethplorer">Sources</a></li>
-                        <li><a href="https://github.com/EverexIO/Ethplorer/wiki/Ethplorer-API">API</a></li>
-                        <li><a href="https://github.com/EverexIO/Ethplorer/issues">Github Issue</a></li>
-                        <li><a href="https://twitter.com/ethplorer">Twitter</a></li>
-                    </ul>
-                </div>
-                <div class="col-xs-5 col-sm-2 col-md-3 footer-links">
-                    <ul>
-                        <li><a href="http://bit.ly/ethp-contact" target="_blank">Contact</a></li>
-                        <li><a href="https://ethplorer.io/#subscribe">Subscribe</a></li>
-                        <li><a href="https://www.reddit.com/r/ethplorer/">Discuss at Reddit</a></li>
-                        <li><a href="http://bit.ly/ethp-contact" target="_blank">Update your Token info</a></li>
-                    </ul>
-                </div>
-                <div class="col-xs-7 col-sm-5 col-md-4 footer-donation">
-                    <strong>Donation:</strong><br>
-                    <br>ETH:<br>0x0dE0BCb0703ff8F1aEb8C892eDbE692683bD8030
-                    <br>BTC:<br>1MKVGqyJA9YkVRuDsGCvnYVJ6ivNtfe289
+                <a href="https://www.bit-z.com/user/signup?pid=1135052&lang=en"><img src="https://www.rebellious.io/explorer/images/bitz.png" width="168"></a>
+                <br><br>
+                <div class="social-links">
+                    <a href="https://www.reddit.com/r/RebelliousCoin/">
+                        <img src="https://www.rebellious.io/explorer/images/Social_00aab5_04.png" alt="" width="50" height="50">
+                    </a>
+                    <a href="https://twitter.com/RebelliousCoin">
+                        <img src="https://www.rebellious.io/explorer/images/Social_00aab5_0.png" alt="" width="50" height="50">
+                    </a>
+                    <a href="https://t.me/RebelliousCoin">
+                        <img src="https://www.rebellious.io/explorer/images/Social_00aab5_02.png" alt="" width="50" height="50">
+                    </a>
+                    <a href="https://www.youtube.com/RebelliousCoin">
+                        <img src="https://www.rebellious.io/explorer/images/Social_00aab5_03.png" alt="" width="50" height="50">
+                    </a>
+                    <a href="https://bitcointalk.org/index.php?topic=2357352.0">
+                        <img src="https://www.rebellious.io/explorer/images/Social_00aab5_06.png" alt="" width="50" height="50">
+                    </a>
+                    <a href="https://discordapp.com/invite/q4yBxct">
+                        <img src="https://www.rebellious.io/explorer/images/Social_00aab5_07.png" alt="" width="50" height="50">
+                    </a>
+                    <a href="https://github.com/RebelliousToken">
+                        <img src="https://www.rebellious.io/explorer/images/Social_00aab5_08.png" alt="" width="50" height="50">
+                    </a>
+                    <a href="https://www.cryptocompare.com/coins/rebl/forum/BTC">
+                        <img src="https://www.rebellious.io/explorer/images/Social_00aab5_010.png" alt="" width="50" height="50">
+                    </a>
+                    <a href="https://www.facebook.com/RebelliousCoin/">
+                        <img src="https://www.rebellious.io/explorer/images/Social_00aab5_011.png" alt="" width="50" height="50">
+                    </a>
+                    <a href="https://www.rebellious.io/rebellious-whitepaper/">
+                        <img src="https://www.rebellious.io/explorer/images/Social_00aab5_09.png" alt="" width="50" height="50">
+                    </a>
+                    <a href="http://qm.qq.com/cgi-bin/qm/qr?k=bPP7xx07QibitJnyOzAqF-VNgyCno0vR">
+                        <img src="https://www.rebellious.io/explorer/images/Social_00aab5_15.png" alt="" width="50" height="50">
+                    </a>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="footer">
+        <div class="container-fluid">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-7 col-sm-5">
+                        <a href="#">
+                            <img src="https://www.rebellious.io/explorer/images/rebl-logo-white.png" style="max-width: 270px;" alt="">
+                        </a>
+                    </div>
+                    <div class="col-xs-5 col-sm-2 col-md-2 footer-links">
+                        <ul>
+                            <li><a href="https://www.rebellious.io/explorer/widgets">Widgets</a></li>
+                            <li><a href="https://github.com/RebelliousToken">Sources</a></li>
+                            <li><a href="https://twitter.com/RebelliousCoin">Twitter</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-xs-5 col-sm-2 col-md-3 footer-links">
+                        <ul>
+                            <li><a href="mailto:info@rebellious.io">Contact</a></li>
+                            <li><a href="https://www.reddit.com/r/RebelliousCoin/">Discuss at Reddit</a></li>
+                        </ul>
+                    </div>
+                </div>
+        </div>
         </div>
     </div>
 </div>
