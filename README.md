@@ -1,16 +1,30 @@
-# Ethplorer
+# Ethplorer - Ethereum Tokens Explorer
 
-Ethereum tokens viewer.
+Easy viewer for investors and ICOs
+API and Widgets for developers
 
-Easy to view tokens and custom data. Users first.
-
-Support tokens developed with Ethereum's [ERC20 (before known as EIP20)](https://github.com/ethereum/EIPs/issues/20) standard.
-
-Provides API, Widgets for websites.
+Provides API, TOP charts, Ethereum Tokens Index, Widgets for websites.
 
 [Online version at Ethplorer.io](https://ethplorer.io)
 
-![alt tag](https://github.com/EverexIO/Ethplorer/blob/develop/images/ethplorer-home2.png)
+![alt tag](https://github.com/EverexIO/Ethplorer/blob/master/images/ethplorer-home.png)
+
+# [Ethereum Tokens Index](https://ethplorer.io/index?from=github)
+![alt tag](https://github.com/EverexIO/Ethplorer/blob/master/images/ethplorer-token-index.png)
+
+# [TOP Tokens by Activity, Capitalization and Trade volume](https://ethplorer.io/top?from=github#count)
+![alt tag](https://github.com/EverexIO/Ethplorer/blob/master/images/ethplorer-top-operations.png)
+
+## [Candlebar charts for tokens](https://ethplorer.io/address/0x6f259637dcd74c767781e37bc6133cd6a68aa161?from=github)
+![alt tag](https://github.com/EverexIO/Ethplorer/blob/master/images/ethplorer-token-chart.png)
+Prices/Volumes candlebar chart for each trading token
+
+## [Portfolio chart for any ethereum address](https://ethplorer.io/address/0xab5c66752a9e8167967685f1450532fb96d5d24f?from=github)
+![alt tag](https://github.com/EverexIO/Ethplorer/blob/master/images/address-chart.png)
+Historical volume and value chart. Detailed information about all tokens.
+
+## [Transactional prices for all transfers](https://ethplorer.io/address/0xab5c66752a9e8167967685f1450532fb96d5d24f?from=github#transfers=12)
+![alt tag](https://github.com/EverexIO/Ethplorer/blob/master/images/ethplorer-historical-prices.png)
 
 
 # Widgets for third-party websites
