@@ -6,6 +6,8 @@ class Metrics {
 
     const STATSD_API_METHOD_PREFIX = 'api-method';
 
+    const STATSD_PHP_PREFIX = 'script-php';
+
     const STATSD_TOTAL_SERVER_NAME = 'total-servers';
 
     static protected $metric = false;
@@ -178,6 +180,61 @@ class Metrics {
             ));
         }
     }
+
+    static public function getPhpPrefix() {
+        return str_replace('.', '-', basename($_SERVER['SCRIPT_FILENAME']));
+    }
+
+    static public function getFirstUrlSegment() {
+        $segments = explode('/', $_SERVER['REQUEST_URI']);
+        if (!isset($segments[1])) {
+            return '_';
+        }
+        return str_replace('.', '-', $segments[1]);
+    }
+
+    static public function startPhpTiming() {
+        if (self::$metric) {
+            self::startTiming(sprintf(
+                '%s.%s.times.%s',
+                self::STATSD_PHP_PREFIX,
+                self::getPhpPrefix(),
+                self::getFirstUrlSegment()
+            ));
+        }
+    }
+
+    static public function stopPhpTiming() {
+        if (self::$metric) {
+            $phpPrefix = self::getPhpPrefix();
+            $uriSegment = self::getFirstUrlSegment();
+            self::stopTiming(sprintf(
+                '%s.%s.times.%s',
+                self::STATSD_PHP_PREFIX,
+                $phpPrefix,
+                $uriSegment
+            ));
+            self::setTiming(
+                sprintf(
+                    '%s.%s.mem.%s',
+                    self::STATSD_PHP_PREFIX,
+                    $phpPrefix,
+                    $uriSegment
+                ),
+                memory_get_usage(true)
+            );
+            self::setTiming(
+                sprintf(
+                    '%s.%s.mem-peak.%s',
+                    self::STATSD_PHP_PREFIX,
+                    $phpPrefix,
+                    $uriSegment
+                ),
+                memory_get_peak_usage(true)
+            );
+        }
+    }
+
 
     static public function writeRedisTiming($method, $redisKey, $size = null) {
         if (self::$metric) {

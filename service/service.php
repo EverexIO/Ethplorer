@@ -41,7 +41,7 @@ $aConfig = require_once dirname(__FILE__) . '/config.php';
 if (!empty($aConfig['statsd'])) {
     Metrics::initMetric($aConfig['statsd']);
 }
-
+Metrics::startPhpTiming();
 if($debugId){
     $aConfig['debugId'] = $debugId;
 }
@@ -111,3 +111,5 @@ if($debugId){
 }
 
 echo json_encode($result);
+
+Metrics::stopPhpTiming();

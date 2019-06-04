@@ -27,7 +27,7 @@ $codeVersion = isset($aConfig['codeVersion']) ? $aConfig['codeVersion'] : "220";
 if (!empty($aConfig['statsd'])) {
     Metrics::initMetric($aConfig['statsd']);
 }
-
+Metrics::startPhpTiming();
 $error = TRUE;
 $header = "";
 $aAddressInfo = array();
@@ -876,3 +876,4 @@ if(Ethplorer.Config.fb){
 <script src="/js/cookie-notify.js" async></script>
 </body>
 </html>
+<?php Metrics::stopPhpTiming(); ?>
