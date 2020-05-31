@@ -60,6 +60,4 @@ Copy service/config.sample.php to service/config.php and specify service address
 
 # Disclaimer
 
-By using Ethplorer code fully or partially, API, widgets or any other service on your website or app for commerce or non-profit activities, you hereby grant permission and allow us to use your business name and/or trademark in our marketing or advertising. 
-
-
+By using Ethplorer code fully or partially, API, widgets or any other service on your website or app for commerce or non-profit activities, you hereby agree with [Terms of Usage and Privacy Policy](https://ethplorer.io/privacy) and grant permission and allow us to use your business name and/or trademark in our marketing or advertising. 
