@@ -1,9 +1,12 @@
 # Ethplorer - Ethereum Tokens Explorer
 
-Easy viewer for investors and ICOs
-API and Widgets for developers
+Your friendly gate into the Ethereum tokens world
 
 Provides API, TOP charts, Ethereum Tokens Index, Widgets for websites.
+
+Track portfolio for any Ethereum address with historical balance charts and transactions. Complete address analytics from historical balances to the volumes of trading, operations and transfers per token per day. Explore marketing possibilities with token API and display widgets.
+
+*You are in the right company. Most of the great projects out there are already using Ethplorer's API: MyEtherWallet, Metamask, MyCrypto, Bancor, Storj, Everex Wallet, Atomic Wallet, Ambisafe, Cointracking, Coinigy and more are among our most popular users*
 
 [Online version at Ethplorer.io](https://ethplorer.io)
 
@@ -57,6 +60,4 @@ Copy service/config.sample.php to service/config.php and specify service address
 
 # Disclaimer
 
-By using Ethplorer code fully or partially, API, widgets or any other service on your website or app for commerce or non-profit activities, you hereby grant permission and allow us to use your business name and/or trademark in our marketing or advertising. 
-
-
+By using Ethplorer code fully or partially, API, widgets or any other service on your website or app for commerce or non-profit activities, you hereby agree with [Terms of Usage and Privacy Policy](https://ethplorer.io/privacy) and grant permission and allow us to use your business name and/or trademark in our marketing or advertising. 
